@@ -62,7 +62,11 @@ const StyledPasswordInput = styled(StyledInput)`
   border-right: none;
 `
 
-const StyledButton = styled.button`
+interface PropsStyledButton {
+  allValidInputs: boolean;
+}
+
+const StyledButton = styled.button<PropsStyledButton>`
   background-color: #0095F6;
   color: #fff;
   border: none;
@@ -70,6 +74,7 @@ const StyledButton = styled.button`
   padding: 10px;
   width: 100%;
   font-weight: bold;
+  opacity: ${props => props.allValidInputs ? '100%' : '50%'};
 `
 
 const StyledPasswordContainer = styled.div`
@@ -122,7 +127,10 @@ const StyledFacebookLoginButton = styled.button`
   width: 100%;
   border: none;
   background-color: transparent;
-  color: #385185;
+  color: #fff;
+  background-color: #0095F6;
+  border-radius: 5px;
+  padding: 3px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -130,17 +138,6 @@ const StyledFacebookLoginButton = styled.button`
 
 const StyledFacebookSquare = styled(FacebookSquare)`
   height: 25px;
-`
-
-const StyledSmallAlert = styled.div`
-  color: #385185;
-  font-size: 12px;
-  margin-top: 10px;
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `
 
 const StyledBottomContainer = styled.div`
@@ -161,15 +158,26 @@ const StyledLink = styled(Link)`
   }
 `
 
+const StyledHeader = styled.h3`
+  color: #AAAAAA;
+  font-weight: normal;
+  margin-bottom: 20px;
+`
 
-const Login = () => {
+const SignUp = () => {
 
   const [email, setEmail] = useState('')
+  const [fullName, setFullName] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.stopPropagation()
+  }
+
+  const checkAllValidInputs = () => {
+    return email !== ''
   }
 
   return (
@@ -183,7 +191,22 @@ const Login = () => {
           <StyledForm onSubmit={handleSubmit}>
             <StyledLogo src="/assets/logo.png" />
 
+            <StyledHeader>Sign up to see photos and videos from your friends.</StyledHeader>
+
+            <StyledFacebookLoginButton>
+              <StyledFacebookSquare />
+              Log in with Facebook
+            </StyledFacebookLoginButton>
+
+            <StyledSeparator>OR</StyledSeparator>
+
             <StyledInput type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+
+            <StyledInput type="text" placeholder="Full Name" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+
+            <StyledInput type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+
+
 
             <StyledPasswordContainer>
               <StyledPasswordInput type={`${showPassword ? 'text' : 'password'}`} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -193,22 +216,11 @@ const Login = () => {
               }}>Show</StyledShowButton>
             </StyledPasswordContainer>
 
-            <StyledButton>Log In</StyledButton>
-
-            <StyledSeparator>OR</StyledSeparator>
-
-            <StyledFacebookLoginButton>
-              <StyledFacebookSquare />
-              Log in with Facebook
-            </StyledFacebookLoginButton>
-
-            <StyledSmallAlert>
-              Forgot password?
-            </StyledSmallAlert>
+            <StyledButton allValidInputs={checkAllValidInputs()}>Sign Up</StyledButton>
           </StyledForm>
 
           <StyledBottomContainer>
-            Don't have an account? <StyledLink to="/signup">Sign up</StyledLink>
+            Have an account? <StyledLink to="/login">Log in</StyledLink>
           </StyledBottomContainer>
         </StyledRight>
       </StyledInnerBody>
@@ -216,4 +228,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default SignUp
