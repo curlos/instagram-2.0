@@ -1,19 +1,24 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { FacebookSquare } from 'styled-icons/boxicons-logos'
+import { Link } from 'react-router-dom'
 
 const StyledBody = styled.div`
-  height: 100vh;
   width: 100vw;
   max-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #FAFAFA;
+  box-sizing: border-box;
 `
 
 const StyledInnerBody = styled.div`
-  height: 75%;
+  height: 100%;
   display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
 `
 
 const StyledLeft = styled.div``
@@ -21,7 +26,7 @@ const StyledLeft = styled.div``
 const StyledRight = styled.div``
 
 const StyledLargeImage = styled.img`
-  height: 100%;
+  height: 600px;
 `
 
 const StyledForm = styled.form`
@@ -85,6 +90,77 @@ const StyledShowButton = styled.button`
   }
 `
 
+const StyledSeparator = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #9B9B9B;
+  margin: 15px auto;
+  font-size: 14px;
+
+  &:before, &:after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #DBDBDB;;
+  }
+
+  &:not(:empty):before {
+    margin-right: .75em;
+  }
+
+  &:not(:empty):after {
+    margin-left: .75em;
+  }
+`
+
+const StyledFacebookLoginButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  color: #385185;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+`
+
+const StyledFacebookSquare = styled(FacebookSquare)`
+  height: 25px;
+`
+
+const StyledSmallAlert = styled.div`
+  color: #385185;
+  font-size: 12px;
+  margin-top: 10px;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
+const StyledBottomContainer = styled.div`
+  background-color: #fff;
+  border: 1px solid #DBDBDB;
+  padding: 30px;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+`
+
+const StyledLink = styled(Link)`
+  color: #0095F6;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
+
 const Login = () => {
 
   const [email, setEmail] = useState('')
@@ -117,7 +193,22 @@ const Login = () => {
             </StyledPasswordContainer>
 
             <StyledButton>Log In</StyledButton>
+
+            <StyledSeparator>OR</StyledSeparator>
+
+            <StyledFacebookLoginButton>
+              <StyledFacebookSquare />
+              Log in with Facebook
+            </StyledFacebookLoginButton>
+
+            <StyledSmallAlert>
+              Forgot password?
+            </StyledSmallAlert>
           </StyledForm>
+
+          <StyledBottomContainer>
+            Don't have an account? <StyledLink to="/signup">Sign up</StyledLink>
+          </StyledBottomContainer>
         </StyledRight>
       </StyledInnerBody>
     </StyledBody>
