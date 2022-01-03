@@ -1,9 +1,12 @@
 import React from 'react';
+import Login from './pages/Login';
+import './styles.css'
 
 function App() {
   return (
     <div className="App">
-      Instagram
+
+      <Login />
     </div>
   );
 }
