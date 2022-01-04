@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import Stories from '../components/Stories'
 import SmallUser from '../components/SmallUser'
 import Suggestions from '../components/Suggestions'
+import MediumPost from '../components/MediumPost'
 
 const StyledBody = styled.div`
   width: 100vw;
@@ -33,6 +34,7 @@ const Feed = () => {
       <StyledBody>
         <StyledLeft>
           <Stories />
+          <MediumPost />
         </StyledLeft>
 
         <StyledRight>

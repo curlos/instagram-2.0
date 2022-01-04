@@ -28,6 +28,7 @@ const StyledChat = styled(ChatFill)`
 
 const StyledBody = styled.div`
   background-image: url('/assets/posts/02.jpeg');
+  background-size: cover;
   aspect-ratio: 1 / 1;
   cursor: pointer;
   display: flex;
