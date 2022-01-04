@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { HeartFill, ChatFill } from 'styled-icons/bootstrap'
 
@@ -26,7 +27,7 @@ const StyledChat = styled(ChatFill)`
   margin-right: 5px;
 `
 
-const StyledBody = styled.div`
+const StyledBody = styled(Link)`
   background-image: url('/assets/posts/02.jpeg');
   background-size: cover;
   aspect-ratio: 1 / 1;
@@ -35,6 +36,7 @@ const StyledBody = styled.div`
   justify-content: center;
   align-items: center;
   color: white;
+  text-decoration: none;
 
   &:hover {
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/assets/posts/02.jpeg');
@@ -47,7 +49,7 @@ const StyledBody = styled.div`
 
 const SmallPost = () => {
   return (
-    <StyledBody>
+    <StyledBody to="/post/1">
       <StyledIcons>
         <StyledIconContainer>
           <StyledHeart />

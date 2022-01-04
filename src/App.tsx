@@ -7,6 +7,7 @@ import Feed from './pages/Feed';
 
 
 import './styles.css'
+import FullPost from './pages/FullPost';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/profile/:id/saved" element={<Profile />} />
+        <Route path="/post/:id" element={<FullPost />} />
         <Route path="/" element={<Feed />} />
       </Routes>
     </div>
