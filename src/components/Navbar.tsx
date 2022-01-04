@@ -45,30 +45,35 @@ const StyledHome = styled(HouseDoorFill)`
   height: 24px;
   width: 24px;
   color: black;
+  cursor: pointer;
 `
 
 const StyledChat = styled(Chat)`
   height: 24px;
   width: 24px;
   color: black;
+  cursor: pointer;
 `
 
 const StyledPlus = styled(PlusSquare)`
   height: 24px;
   width: 24px;
   color: black;
+  cursor: pointer;
 `
 
 const StyledCompass = styled(Compass)`
   height: 24px;
   width: 24px;
   color: black;
+  cursor: pointer;
 `
 
 const StyledHeart = styled(Heart)`
   height: 24px;
   width: 24px;
   color: black;
+  cursor: pointer;
 `
 
 const StyledInnerDiv = styled.div`
@@ -86,6 +91,7 @@ const StyledRight = styled(StyledInnerDiv)`
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('')
+  const [open, setOpen] = useState(false)
 
   return (
     <StyledBody>
@@ -103,14 +109,14 @@ const Navbar = () => {
         <StyledRight>
           <StyledHome />
           <StyledChat />
-          <StyledPlus />
+          <StyledPlus onClick={() => setOpen(true)} />
           <StyledCompass />
           <StyledHeart />
           <AvatarDropdown />
         </StyledRight>
       </StyledInnerBody>
 
-      {/* <NewPostModal /> */}
+      <NewPostModal open={open} setOpen={setOpen} />
     </StyledBody>
   )
 }

@@ -50,8 +50,6 @@ const Feed = () => {
         </StyledRight>
       </StyledBody>
 
-      <NewPostModal />
-
     </div>
   )
 }

@@ -161,7 +161,12 @@ const StyledFooter = styled.div`
   padding: 10px;
 `
 
-const NewPostModal = () => {
+interface Props {
+  open: boolean;
+  setOpen: any;
+}
+
+const NewPostModal = ({ open, setOpen }: Props) => {
 
   const [input, setInput] = useState('')
   const [showEmojis, setShowEmojis] = useState(false)
@@ -175,70 +180,72 @@ const NewPostModal = () => {
   }
 
   return (
-    <StyledModal>
-      <StyledCloseButton />
-      <StyledModalContent>
-        <StyledTop>
-          <div>
-            <StyledArrowLeft />
-          </div>
-          <StyledBold>Create new post</StyledBold>
-          <StyledPostButton>Share</StyledPostButton>
-        </StyledTop>
+    open ? (
+      <StyledModal>
+        <StyledCloseButton onClick={() => setOpen(false)} />
+        <StyledModalContent>
+          <StyledTop>
+            <div>
+              <StyledArrowLeft />
+            </div>
+            <StyledBold>Create new post</StyledBold>
+            <StyledPostButton>Share</StyledPostButton>
+          </StyledTop>
 
-        <StyledMiddle>
-          <StyledMiddleLeft />
+          <StyledMiddle>
+            <StyledMiddleLeft />
 
-          <StyledMiddleRight>
-            <StyledUser>
-              <StyledAvatar src="/assets/avatars/black_cat.jpeg" />
-              <StyledBold>curlosmart</StyledBold>
-            </StyledUser>
+            <StyledMiddleRight>
+              <StyledUser>
+                <StyledAvatar src="/assets/avatars/black_cat.jpeg" />
+                <StyledBold>curlosmart</StyledBold>
+              </StyledUser>
 
-            <StyledTextarea placeholder="Add a comment..." value={input} onChange={(e) => setInput(e.target.value)} />
+              <StyledTextarea placeholder="Add a comment..." value={input} onChange={(e) => setInput(e.target.value)} />
 
-            <StyledExtraInfoContainer>
-              <StyledEmojiButton onClick={() => setShowEmojis(!showEmojis)}>
-                <StyledEmoji />
-              </StyledEmojiButton>
+              <StyledExtraInfoContainer>
+                <StyledEmojiButton onClick={() => setShowEmojis(!showEmojis)}>
+                  <StyledEmoji />
+                </StyledEmojiButton>
 
-              <StyledChracterLimit>
-                {input.length}/2,200
-              </StyledChracterLimit>
-            </StyledExtraInfoContainer>
+                <StyledChracterLimit>
+                  {input.length}/2,200
+                </StyledChracterLimit>
+              </StyledExtraInfoContainer>
 
-            <StyledExtraInfoContainer>
-              Add location
-              <StyledLocation />
-            </StyledExtraInfoContainer>
+              <StyledExtraInfoContainer>
+                Add location
+                <StyledLocation />
+              </StyledExtraInfoContainer>
 
-            <StyledExtraInfoContainer>
-              Accessibility
-              <StyledChevronDown />
-            </StyledExtraInfoContainer>
+              <StyledExtraInfoContainer>
+                Accessibility
+                <StyledChevronDown />
+              </StyledExtraInfoContainer>
 
-            <StyledExtraInfoContainer>
-              Advanced Settings
+              <StyledExtraInfoContainer>
+                Advanced Settings
 
-              <StyledChevronDown />
-            </StyledExtraInfoContainer>
+                <StyledChevronDown />
+              </StyledExtraInfoContainer>
 
-            {showEmojis && (
-              <Picker
-                onSelect={addEmoji}
-                style={{
-                  position: "absolute",
-                  maxWidth: "320px",
-                  borderRadius: "20px"
-                }}
-              />
-            )}
-          </StyledMiddleRight>
+              {showEmojis && (
+                <Picker
+                  onSelect={addEmoji}
+                  style={{
+                    position: "absolute",
+                    maxWidth: "320px",
+                    borderRadius: "20px"
+                  }}
+                />
+              )}
+            </StyledMiddleRight>
 
 
-        </StyledMiddle>
-      </StyledModalContent>
-    </StyledModal>
+          </StyledMiddle>
+        </StyledModalContent>
+      </StyledModal>
+    ) : null
   )
 }
 
