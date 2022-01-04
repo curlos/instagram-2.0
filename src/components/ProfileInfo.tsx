@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Navbar from '../components/Navbar'
 import { CheckmarkStarburst } from 'styled-icons/fluentui-system-filled'
 import { ChevronDown, DotsHorizontalRounded } from 'styled-icons/boxicons-regular'
+import ProfileOptionsModal from './ProfileOptionsModal'
 
 const StyledBody = styled.div`
   display: flex;
@@ -74,6 +75,7 @@ const StyledRightTop = styled.div`
 const StyledDots = styled(DotsHorizontalRounded)`
   height: 20px;
   width: 20px;
+  cursor: pointer;
 `
 
 const StyledBold = styled.span`
@@ -115,6 +117,8 @@ const StyledFollowedBy = styled.div`
 
 const ProfileInfo = () => {
 
+  const [open, setOpen] = useState(false)
+
   return (
     <StyledBody>
       <StyledLeft>
@@ -135,7 +139,7 @@ const ProfileInfo = () => {
             S
           </StyledButton>
 
-          <StyledDots />
+          <StyledDots onClick={() => setOpen(true)} />
         </StyledRightTop>
 
         <StyledStats>
@@ -164,6 +168,8 @@ const ProfileInfo = () => {
           Followed by <StyledBlack>kingjames</StyledBlack> and <StyledBlack>brkicks</StyledBlack>
         </StyledFollowedBy>
       </StyledRight>
+
+      {open ? <ProfileOptionsModal open={open} setOpen={setOpen} /> : null}
 
 
     </StyledBody>
