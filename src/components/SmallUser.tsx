@@ -1,11 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
 
+interface Props {
+  currentUser?: boolean
+}
+
 const StyledBody = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
+  margin-bottom: 15px;
 `
 
 const StyledAvatar = styled.img`
@@ -38,7 +43,8 @@ const StyledRight = styled.div`
 
 `
 
-const SmallUser = () => {
+
+const SmallUser = ({ currentUser }: Props) => {
 
 
   return (

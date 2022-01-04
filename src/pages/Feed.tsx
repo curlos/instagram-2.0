@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Navbar from '../components/Navbar'
 import Stories from '../components/Stories'
 import SmallUser from '../components/SmallUser'
+import Suggestions from '../components/Suggestions'
 
 const StyledBody = styled.div`
   width: 100vw;
@@ -36,6 +37,8 @@ const Feed = () => {
 
         <StyledRight>
           <SmallUser />
+
+          <Suggestions />
         </StyledRight>
       </StyledBody>
 
