@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Heart } from '@styled-icons/bootstrap/Heart'
 import { HeartFill } from '@styled-icons/bootstrap/HeartFill'
@@ -10,6 +11,15 @@ import NewCommentInput from './NewCommentInput'
 const StyledBody = styled.div`
   margin: 15px auto;
   font-size: 14px;
+`
+
+const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
 const StyledTop = styled.div`
@@ -142,8 +152,10 @@ const MediumPost = () => {
     <StyledBody>
       <StyledTop>
         <StyledTopLeft>
-          <StyledSmallAvatar src="/assets/avatars/harley_avatar.jpeg" />
-          <div>brkicks</div>
+          <StyledLink to="/profile/cristiano">
+            <StyledSmallAvatar src="/assets/avatars/harley_avatar.jpeg" />
+          </StyledLink>
+          <StyledLink to="/profile/cristiano">brkicks</StyledLink>
         </StyledTopLeft>
 
         <StyledDots />

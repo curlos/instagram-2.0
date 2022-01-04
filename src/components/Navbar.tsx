@@ -6,6 +6,7 @@ import { Compass } from '@styled-icons/bootstrap/Compass'
 import { Heart } from '@styled-icons/bootstrap/Heart'
 import { Chat } from '@styled-icons/bootstrap/Chat'
 import { PlusSquare } from '@styled-icons/bootstrap/PlusSquare'
+import AvatarDropdown from './AvatarDropdown'
 
 const StyledBody = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ const StyledInnerBody = styled.div`
 
 const StyledLogo = styled.img`
   width: 103px;
+  margin-top: 10px;
 `
 
 const StyledInput = styled.input`
@@ -80,12 +82,6 @@ const StyledRight = styled(StyledInnerDiv)`
   margin-left: 10px;
 `
 
-const StyledAvatar = styled.img`
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-`
-
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('')
@@ -109,9 +105,7 @@ const Navbar = () => {
           <StyledPlus />
           <StyledCompass />
           <StyledHeart />
-          <Link to="/profile/cristiano">
-            <StyledAvatar src="/assets/avatars/harley_avatar.jpeg" alt="" />
-          </Link>
+          <AvatarDropdown />
         </StyledRight>
       </StyledInnerBody>
     </StyledBody>
