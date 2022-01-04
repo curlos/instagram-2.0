@@ -5,6 +5,7 @@ import { HeartFill } from '@styled-icons/bootstrap/HeartFill'
 import { DotsHorizontalRounded } from '@styled-icons/boxicons-regular/DotsHorizontalRounded'
 import { Chat } from '@styled-icons/bootstrap/Chat'
 import { Bookmark } from '@styled-icons/bootstrap/Bookmark'
+import NewCommentInput from './NewCommentInput'
 
 const StyledBody = styled.div`
   margin: 15px auto;
@@ -66,6 +67,7 @@ const StyledIconButton = styled.button`
   background-color: transparent;
   border: none;
   padding: 0;
+  cursor: pointer;
 `
 
 const StyledHeart = styled(Heart)`
@@ -85,6 +87,7 @@ const StyledInfoContainer = styled.div`
   background-color: #fff;
   border: 1px solid #DBDBDB;
   border-top: none;
+  border-bottom: none;
   padding: 12px;
 `
 
@@ -130,6 +133,7 @@ const StyledMoreButton = styled.button`
   padding: 0;
   color: #A5A5A5;
   margin-left: 4px;
+  cursor: pointer;
 `
 
 
@@ -198,13 +202,15 @@ const MediumPost = () => {
                 </StyledCommentDesc>
               </div>
 
-              <div>
+              <StyledIconButton>
                 <StyledThinHeart />
-              </div>
+              </StyledIconButton>
             </StyledComment>
           </div>
         </StyledDetailedInfo>
       </StyledInfoContainer>
+
+      <NewCommentInput />
     </StyledBody>
   )
 }

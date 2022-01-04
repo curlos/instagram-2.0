@@ -34,7 +34,12 @@ const Feed = () => {
       <StyledBody>
         <StyledLeft>
           <Stories />
-          <MediumPost />
+
+          <div>
+            <MediumPost />
+            <MediumPost />
+            <MediumPost />
+          </div>
         </StyledLeft>
 
         <StyledRight>

@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { HomeAlt, Compass, Heart, Chat, PlusCircle } from 'styled-icons/boxicons-regular'
+import { HouseDoorFill } from '@styled-icons/bootstrap/HouseDoorFill'
+import { Compass } from '@styled-icons/bootstrap/Compass'
+import { Heart } from '@styled-icons/bootstrap/Heart'
+import { Chat } from '@styled-icons/bootstrap/Chat'
+import { PlusSquare } from '@styled-icons/bootstrap/PlusSquare'
 
 const StyledBody = styled.div`
   display: flex;
@@ -34,33 +38,33 @@ const StyledInput = styled.input`
   }
 `
 
-const StyledHome = styled(HomeAlt)`
-  height: 25px;
-  width: 25px;
+const StyledHome = styled(HouseDoorFill)`
+  height: 24px;
+  width: 24px;
   color: black;
 `
 
 const StyledChat = styled(Chat)`
-  height: 25px;
-  width: 25px;
+  height: 24px;
+  width: 24px;
   color: black;
 `
 
-const StyledPlus = styled(PlusCircle)`
-  height: 25px;
-  width: 25px;
+const StyledPlus = styled(PlusSquare)`
+  height: 24px;
+  width: 24px;
   color: black;
 `
 
 const StyledCompass = styled(Compass)`
-  height: 25px;
-  width: 25px;
+  height: 24px;
+  width: 24px;
   color: black;
 `
 
 const StyledHeart = styled(Heart)`
-  height: 25px;
-  width: 25px;
+  height: 24px;
+  width: 24px;
   color: black;
 `
 
@@ -70,8 +74,10 @@ const StyledInnerDiv = styled.div`
 
 const StyledRight = styled(StyledInnerDiv)`
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   gap: 20px;
+  margin-left: 10px;
 `
 
 const StyledAvatar = styled.img`
