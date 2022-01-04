@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Navbar from '../components/Navbar'
 import ProfileInfo from '../components/ProfileInfo'
+import Posts from '../components/Posts'
 
 const StyledBody = styled.div`
   display: flex;
@@ -22,6 +23,7 @@ const Profile = () => {
       <StyledBody>
         <StyledInnerBody>
           <ProfileInfo />
+          <Posts />
         </StyledInnerBody>
       </StyledBody>
     </div>

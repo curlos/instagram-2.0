@@ -24,7 +24,11 @@ const StyledName = styled.div`
 const StyledAvatar = styled.img`
   height: 150px;
   border-radius: 50%;
-  margin-right: 100px;
+  margin-right: 60px;
+
+  @media (max-width: 768px) {
+    height: 100px;
+  }
 `
 
 const StyledButton = styled.button`
@@ -47,7 +51,14 @@ const StyledDown = styled(ChevronDown)`
   width: 20px;
 `
 
+const StyledLeft = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+`
+
 const StyledRight = styled.div`
+  flex: 2;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -70,11 +81,16 @@ const StyledBold = styled.span`
 `
 
 const StyledStats = styled.div`
-  margin: 20px auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `
 
 const StyledStat = styled.span`
   margin-right: 20px;
+`
+
+const StyledLinkContainer = styled.div`
+  margin-top: 5px;
 `
 
 const StyledLink = styled.a`
@@ -101,9 +117,9 @@ const ProfileInfo = () => {
 
   return (
     <StyledBody>
-      <div>
+      <StyledLeft>
         <StyledAvatar src="/assets/avatars/harley_avatar.jpeg" alt="" />
-      </div>
+      </StyledLeft>
 
       <StyledRight>
         <StyledRightTop>
@@ -140,9 +156,9 @@ const ProfileInfo = () => {
           <StyledBold>Cristiano Ronaldo</StyledBold>
         </div>
 
-        <div>
+        <StyledLinkContainer>
           <StyledLink>www.cristianoronaldo.com</StyledLink>
-        </div>
+        </StyledLinkContainer>
 
         <StyledFollowedBy>
           Followed by <StyledBlack>kingjames</StyledBlack> and <StyledBlack>brkicks</StyledBlack>
