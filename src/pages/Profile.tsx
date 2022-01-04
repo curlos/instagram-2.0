@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Navbar from '../components/Navbar'
+import ProfileInfo from '../components/ProfileInfo'
 
 const StyledBody = styled.div`
   display: flex;
@@ -20,7 +21,7 @@ const Profile = () => {
       <Navbar />
       <StyledBody>
         <StyledInnerBody>
-          profile
+          <ProfileInfo />
         </StyledInnerBody>
       </StyledBody>
     </div>
