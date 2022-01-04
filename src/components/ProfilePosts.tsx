@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import SmallPost from './SmallPost'
 import { Grid3x3 } from '@styled-icons/bootstrap/Grid3x3'
 import { Bookmark } from '@styled-icons/bootstrap/Bookmark'
+import { Link, useLocation } from 'react-router-dom'
 
 const StyledBody = styled.div`
   max-width: 100%;
@@ -21,7 +22,7 @@ interface StyledTypeContainerProps {
   postsType: boolean;
 }
 
-const StyledTypeContainer = styled.div<StyledTypeContainerProps>`
+const StyledTypeContainer = styled(Link) <StyledTypeContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,6 +35,7 @@ const StyledTypeContainer = styled.div<StyledTypeContainerProps>`
   border-top: ${props => props.postsType ? '1px solid black' : '1px solid #DBDBDB;'};
   padding: 15px;
   margin-top: -1px;
+  text-decoration: none;
 `
 
 const StyledPosts = styled.div`
@@ -56,18 +58,26 @@ const StyledBookmark = styled(Bookmark)`
 `
 
 const ProfilePosts = () => {
+  const location = useLocation()
+  const [postsType, setPostsType] = useState(location.pathname.includes('/saved') ? 'SAVED' : 'POSTS')
 
-  const [postsType, setPostsType] = useState('POSTS')
+  useEffect(() => {
+    setPostsType(location.pathname.includes('/saved') ? 'SAVED' : 'POSTS')
+  }, [location.pathname])
+
+  console.log(location)
+
+  console.log(postsType)
 
   return (
     <StyledBody>
       <StyledPostTypesContainer>
-        <StyledTypeContainer postsType={postsType === 'POSTS'} onClick={() => setPostsType('POSTS')}>
+        <StyledTypeContainer to={`/profile/cristiano`} postsType={postsType === 'POSTS'}>
           <StyledGrid3x3 />
           POSTS
         </StyledTypeContainer>
 
-        <StyledTypeContainer postsType={postsType === 'SAVED'} onClick={() => setPostsType('SAVED')}>
+        <StyledTypeContainer to={`/profile/cristiano/saved`} postsType={postsType === 'SAVED'}>
           <StyledBookmark />
           SAVED
         </StyledTypeContainer>

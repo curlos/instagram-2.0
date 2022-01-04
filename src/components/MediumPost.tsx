@@ -53,11 +53,7 @@ interface StyledImgProps {
 }
 
 const StyledImg = styled.div<StyledImgProps>`
-  background-image: ${props => {
-    console.log(props)
-    console.log(`url('${props.imgSrc}')`)
-    return `url('${props.imgSrc}')`
-  }};
+  background-image: ${props => `url('${props.imgSrc}')`};
   background-size: cover;
   aspect-ratio: 1 / 1;
 `

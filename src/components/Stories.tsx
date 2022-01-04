@@ -17,6 +17,7 @@ const StyledName = styled.div`
 
 const StyledUser = styled.div`
   text-align: center;
+  cursor: pointer;
 `
 
 const StyledAvatar = styled.img`

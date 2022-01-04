@@ -91,28 +91,32 @@ const AvatarDropdown = () => {
 
   const [open, setOpen] = useState(false)
 
+  const handleClose = () => {
+    setOpen(false)
+  }
+
 
   return (
     <StyledDropdown>
       <StyledAvatar src="/assets/avatars/harley_avatar.jpeg" alt="" onClick={() => setOpen(!open)} />
       <StyledDropdownContent open={open}>
         <StyledOption>
-          <StyledLink to="/profile/cristiano">
+          <StyledLink to="/profile/cristiano" onClick={handleClose}>
             <StyledPerson />
             <span>Profile</span>
           </StyledLink>
 
-          <StyledLink to="/profile/cristiano">
+          <StyledLink to="/profile/cristiano/saved" onClick={handleClose}>
             <StyledBookmark />
             <span>Saved</span>
           </StyledLink>
 
-          <StyledLink to="/settings">
+          <StyledLink to="/settings" onClick={handleClose}>
             <StyledGear />
             <span>Settings</span>
           </StyledLink>
 
-          <StyledLogout to="/login">
+          <StyledLogout to="/login" onClick={handleClose}>
             Log Out
           </StyledLogout>
         </StyledOption>
