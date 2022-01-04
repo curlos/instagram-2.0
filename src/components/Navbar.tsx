@@ -7,6 +7,7 @@ import { Heart } from '@styled-icons/bootstrap/Heart'
 import { Chat } from '@styled-icons/bootstrap/Chat'
 import { PlusSquare } from '@styled-icons/bootstrap/PlusSquare'
 import AvatarDropdown from './AvatarDropdown'
+import NewPostModal from './NewPostModal'
 
 const StyledBody = styled.div`
   display: flex;
@@ -108,6 +109,8 @@ const Navbar = () => {
           <AvatarDropdown />
         </StyledRight>
       </StyledInnerBody>
+
+      {/* <NewPostModal /> */}
     </StyledBody>
   )
 }

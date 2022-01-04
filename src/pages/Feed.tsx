@@ -5,6 +5,7 @@ import Stories from '../components/Stories'
 import SmallUser from '../components/SmallUser'
 import Suggestions from '../components/Suggestions'
 import MediumPost from '../components/MediumPost'
+import NewPostModal from '../components/NewPostModal'
 
 const StyledBody = styled.div`
   width: 100vw;
@@ -48,6 +49,8 @@ const Feed = () => {
           <Suggestions />
         </StyledRight>
       </StyledBody>
+
+      <NewPostModal />
 
     </div>
   )
