@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Heart } from '@styled-icons/bootstrap/Heart'
@@ -7,6 +7,7 @@ import { DotsHorizontalRounded } from '@styled-icons/boxicons-regular/DotsHorizo
 import { Chat } from '@styled-icons/bootstrap/Chat'
 import { Bookmark } from '@styled-icons/bootstrap/Bookmark'
 import NewCommentInput from './NewCommentInput'
+import PostInfoModal from './PostInfoModal'
 
 const StyledBody = styled.div`
   margin: 15px auto;
@@ -46,6 +47,7 @@ const StyledSmallAvatar = styled.img`
 
 const StyledDots = styled(DotsHorizontalRounded)`
   height: 25px;
+  cursor: pointer;
 `
 
 interface StyledImgProps {
@@ -144,6 +146,9 @@ const StyledMoreButton = styled.button`
 
 
 const MediumPost = () => {
+
+  const [open, setOpen] = useState(false)
+
   return (
     <StyledBody>
       <StyledTop>
@@ -154,7 +159,7 @@ const MediumPost = () => {
           <StyledLink to="/profile/cristiano">brkicks</StyledLink>
         </StyledTopLeft>
 
-        <StyledDots />
+        <StyledDots onClick={() => setOpen(true)} />
       </StyledTop>
 
       <StyledImg imgSrc={`/assets/posts/wonder_woman.jpeg`} />
@@ -219,6 +224,8 @@ const MediumPost = () => {
       </StyledInfoContainer>
 
       <NewCommentInput />
+
+      {open ? <PostInfoModal open={open} setOpen={setOpen} /> : null}
     </StyledBody>
   )
 }

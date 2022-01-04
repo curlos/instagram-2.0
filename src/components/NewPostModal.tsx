@@ -9,7 +9,9 @@ import { Location } from '@styled-icons/evil/Location'
 import { ArrowLeft } from '@styled-icons/bootstrap/ArrowLeft'
 
 const StyledModal = styled.div`
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -34,6 +36,10 @@ const StyledModalContent = styled.div`
 `
 
 const StyledCloseButton = styled(XLg)`
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 10px;
   color: #fff;
   height: 30px;
   width: 30px;
