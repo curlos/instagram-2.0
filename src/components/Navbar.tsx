@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { HomeAlt, Compass, Heart, Chat, PlusCircle } from 'styled-icons/boxicons-regular'
 
@@ -87,7 +88,9 @@ const Navbar = () => {
     <StyledBody>
       <StyledInnerBody>
         <StyledInnerDiv>
-          <StyledLogo src="/assets/logo.png" />
+          <Link to="/">
+            <StyledLogo src="/assets/logo.png" />
+          </Link>
         </StyledInnerDiv>
 
         <StyledInnerDiv>
@@ -100,7 +103,9 @@ const Navbar = () => {
           <StyledPlus />
           <StyledCompass />
           <StyledHeart />
-          <StyledAvatar src="/assets/avatars/harley_avatar.jpeg" alt="" />
+          <Link to="/profile/cristiano">
+            <StyledAvatar src="/assets/avatars/harley_avatar.jpeg" alt="" />
+          </Link>
         </StyledRight>
       </StyledInnerBody>
     </StyledBody>

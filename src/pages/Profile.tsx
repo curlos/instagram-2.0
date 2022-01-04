@@ -2,13 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import Navbar from '../components/Navbar'
 import ProfileInfo from '../components/ProfileInfo'
-import Posts from '../components/Posts'
+import ProfilePosts from '../components/ProfilePosts'
 
 const StyledBody = styled.div`
   display: flex;
   justify-content: center;
   width: 100vw;
   max-width: 100%;
+  background-color: #FAFAFA;
 `
 
 const StyledInnerBody = styled.div`
@@ -23,7 +24,7 @@ const Profile = () => {
       <StyledBody>
         <StyledInnerBody>
           <ProfileInfo />
-          <Posts />
+          <ProfilePosts />
         </StyledInnerBody>
       </StyledBody>
     </div>

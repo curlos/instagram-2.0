@@ -11,7 +11,7 @@ const StyledBody = styled.div`
   margin-bottom: 40px;
 `
 
-const Posts = () => {
+const ProfilePosts = () => {
 
   return (
     <StyledBody>
@@ -26,4 +26,4 @@ const Posts = () => {
   )
 }
 
-export default Posts
+export default ProfilePosts
