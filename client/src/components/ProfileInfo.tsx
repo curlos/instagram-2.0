@@ -11,6 +11,11 @@ const StyledBody = styled.div`
   padding: 30px;
   padding-left: 40px;
   padding-right: 40px;
+
+  @media (max-width: 768px) {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 `
 
 const StyledInnerBody = styled.div`
@@ -70,6 +75,10 @@ const StyledRightTop = styled.div`
   align-items: center;
   gap: 10px;
   height: 100%;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
 `
 
 const StyledDots = styled(DotsHorizontalRounded)`
@@ -132,8 +141,12 @@ const ProfileInfo = () => {
             <StyledCheckmark />
           </StyledName>
 
-          <StyledButton>Message</StyledButton>
-          <StyledButton>Follow</StyledButton>
+          <StyledButton>
+            <StyledBold>Message</StyledBold>
+          </StyledButton>
+          <StyledButton>
+            <StyledBold>Follow</StyledBold>
+          </StyledButton>
           <StyledButton>
             {/* <StyledDown /> */}
             S
