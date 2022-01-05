@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { FacebookSquare } from 'styled-icons/boxicons-logos'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const StyledBody = styled.div`
+  min-height: 100vh;
   width: 100vw;
   max-width: 100%;
   display: flex;
@@ -164,12 +166,34 @@ const StyledLink = styled(Link)`
 
 const Login = () => {
 
-  const [email, setEmail] = useState('')
+  const navigate = useNavigate()
+
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.stopPropagation()
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    console.log('bumj')
+    console.log({
+      username: username,
+      password: password
+    })
+
+    const response = await axios.post(process.env.REACT_APP_SERVER_URL + '/auth/login', {
+      username: username,
+      password: password
+    })
+
+    if (response.data.error) {
+      alert(response.data.error)
+    } else {
+      sessionStorage.setItem('accessToken', response.data)
+      navigate('/')
+    }
+    console.log('')
+    console.log(response.data)
   }
 
   return (
@@ -180,10 +204,10 @@ const Login = () => {
         </StyledLeft>
 
         <StyledRight>
-          <StyledForm onSubmit={handleSubmit}>
+          <StyledForm onSubmit={handleLogin}>
             <StyledLogo src="/assets/logo.png" />
 
-            <StyledInput type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <StyledInput type="text" placeholder="Email" value={username} onChange={(e) => setUsername(e.target.value)} />
 
             <StyledPasswordContainer>
               <StyledPasswordInput type={`${showPassword ? 'text' : 'password'}`} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -193,7 +217,7 @@ const Login = () => {
               }}>Show</StyledShowButton>
             </StyledPasswordContainer>
 
-            <StyledButton>Log In</StyledButton>
+            <StyledButton type="submit">Log In</StyledButton>
 
             <StyledSeparator>OR</StyledSeparator>
 
