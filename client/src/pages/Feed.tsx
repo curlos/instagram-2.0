@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Navbar from '../components/Navbar'
 import Stories from '../components/Stories'
@@ -6,6 +6,7 @@ import SmallUser from '../components/SmallUser'
 import Suggestions from '../components/Suggestions'
 import MediumPost from '../components/MediumPost'
 import NewPostModal from '../components/NewPostModal'
+import axios from 'axios'
 
 const StyledBody = styled.div`
   width: 100vw;
@@ -28,6 +29,17 @@ const StyledRight = styled.div`
 `
 
 const Feed = () => {
+
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/posts').then((response) => {
+      setPosts(response.data)
+    })
+  }, [])
+
+  console.log(posts)
+
   return (
     <div>
       <Navbar />
