@@ -1,9 +1,19 @@
 const express = require('express')
+const session = require("express-session")
 const app = express()
 const cors = require('cors')
+const dotenv = require('dotenv').config()
+const passport = require("passport")
+const logger = require('morgan')
 
 app.use(cors())
+app.use(logger('dev'))
 app.use(express.json())
+
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }))
+app.use(passport.initialize())
+app.use(passport.session())
+require('./passport/config')(passport)
 
 const db = require('./models')
 

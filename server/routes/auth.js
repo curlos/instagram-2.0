@@ -1,7 +1,9 @@
 const express = require('express')
-const router = express.Router()
+const passport = require("passport");
 const { Users } = require('../models')
 const bcrypt = require('bcrypt')
+
+const router = express.Router()
 
 const { sign } = require('jsonwebtoken')
 
@@ -33,26 +35,17 @@ router.post('/signup', async (req, res) => {
   }
 })
 
-router.post('/login', async (req, res) => {
-  const { username, password } = req.body
-
-  console.log(req.body)
-  
-  const user = await Users.findOne({ where: { username: username } })
-  console.log(user)
-  
-  if (!user) res.json({ error: "User not found"})
-
-  bcrypt.compare(password, user.password).then( async (match) => {
-    if (!match) res.json({ error: "Invalid credentials"})
-
-    const accessToken = sign(
-      { username: user.username, id: user.id },
-      'secret'
-    )
-
-    res.json(accessToken)
-  })
+router.post('/login', async (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err
+    if (!user) res.send({ error: 'Wrong credentials' })
+    else {
+      req.logIn(user, (err) => {
+        if (err) throw err
+        res.json(req.user)
+      })
+    }
+  })(req, res, next)
 })
 
 module.exports = router;
