@@ -96,8 +96,6 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [open, setOpen] = useState(false)
 
-  console.log(user)
-
   return (
     <StyledBody>
       <StyledInnerBody>

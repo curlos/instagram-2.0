@@ -42,6 +42,8 @@ router.post('/login', async (req, res, next) => {
     else {
       req.logIn(user, (err) => {
         if (err) throw err
+        const { password, ...others } = req.user
+        console.log(typeof req.user)
         res.json(req.user)
       })
     }

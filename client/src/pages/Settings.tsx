@@ -4,6 +4,8 @@ import Navbar from '../components/Navbar'
 import { Link, useLocation } from 'react-router-dom'
 import EditProfile from '../components/EditProfile'
 import ChangePassword from '../components/ChangePassword'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../redux/userSlice'
 
 const StyledBody = styled.div`
   background-color: #FAFAFA;
@@ -55,6 +57,7 @@ const StyledOption = styled(Link) <StyledOptionProps>`
 `
 
 const Settings = () => {
+  const user = useSelector(selectUser)
   const location = useLocation()
   const [settingsType, setSettingsType] = useState(location.pathname.includes('/edit') ? 'Edit Profile' : 'Change Password')
 
@@ -62,7 +65,7 @@ const Settings = () => {
     setSettingsType(location.pathname.includes('/edit') ? 'Edit Profile' : 'Change Password')
   }, [location.pathname])
 
-  console.log(settingsType)
+  console.log(user)
 
   return (
     <div>
@@ -76,9 +79,9 @@ const Settings = () => {
 
           <StyledRight>
             {settingsType === 'Edit Profile' ? (
-              <EditProfile />
+              <EditProfile user={user} />
             ) : (
-              <ChangePassword />
+              <ChangePassword user={user} />
             )}
           </StyledRight>
         </StyledSettingsContainer>

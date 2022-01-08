@@ -18,8 +18,8 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/profile/:id/saved" element={<Profile />} />
+        <Route path="/profile/:username" element={<Profile />} />
+        <Route path="/profile/:username/saved" element={<Profile />} />
         <Route path="/post/:id" element={<FullPost />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/settings/edit" element={<Settings />} />

@@ -188,8 +188,8 @@ const Login = () => {
       alert(response.data.error)
     } else {
       console.log(response.data)
-
-      sessionStorage.setItem('accessToken', response.data)
+      dispatch(login(response.data))
+      sessionStorage.setItem('user', JSON.stringify(response.data))
       navigate('/')
     }
   }

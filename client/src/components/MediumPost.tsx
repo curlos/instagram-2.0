@@ -157,8 +157,6 @@ const MediumPost = ({ post }: Props) => {
 
   }
 
-  console.log(post)
-
   return (
     <StyledBody>
       <StyledTop>

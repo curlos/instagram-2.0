@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const StyledBody = styled.div`
@@ -56,7 +56,15 @@ const StyledButton = styled.button`
   font-weight: bold;
 `
 
-const ChangePassword = () => {
+interface Props {
+  user: any
+}
+
+const ChangePassword = ({ user }: Props) => {
+
+  const [oldPassword, setOldPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [confirmNewPassword, setConfirmNewPassword] = useState('')
 
   return (
     <StyledBody>
@@ -67,17 +75,17 @@ const ChangePassword = () => {
 
       <StyledInputContainer>
         <StyledLabel>Old Password</StyledLabel>
-        <StyledInput />
+        <StyledInput value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
       </StyledInputContainer>
 
       <StyledInputContainer>
         <StyledLabel>New Password</StyledLabel>
-        <StyledInput />
+        <StyledInput value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
       </StyledInputContainer>
 
       <StyledInputContainer>
         <StyledLabel>Confirm New Password</StyledLabel>
-        <StyledInput />
+        <StyledInput value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} />
       </StyledInputContainer>
 
       <StyledInputContainer>

@@ -82,22 +82,28 @@ const StyledButtonNoBG = styled.button`
   }
 `
 
-const EditProfile = () => {
+interface Props {
+  user: any
+}
 
-  const [name, setName] = useState('')
-  const [username, setUsername] = useState('')
-  const [website, setWebsite] = useState('')
-  const [bio, setBio] = useState('')
-  const [email, setEmail] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [gender, setGender] = useState('')
+const EditProfile = ({ user }: Props) => {
+
+  const [name, setName] = useState(user.fullName || '')
+  const [username, setUsername] = useState(user.username || '')
+  const [website, setWebsite] = useState(user.website || '')
+  const [bio, setBio] = useState(user.bio || '')
+  const [email, setEmail] = useState(user.email || '')
+  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber || '')
+  const [gender, setGender] = useState(user.gender || '')
+
+  console.log(user)
 
   return (
     <StyledBody>
       <StyledTop>
         <StyledAvatar src="/assets/avatars/black_cat.jpeg" alt="" />
         <div>
-          <h2>curlosmart</h2>
+          <h2>{user.username}</h2>
           <StyledButtonNoBG>Change Profile Photo</StyledButtonNoBG>
         </div>
       </StyledTop>

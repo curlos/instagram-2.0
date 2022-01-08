@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import { Person } from '@styled-icons/bootstrap/Person'
 import { Bookmark } from '@styled-icons/bootstrap/Bookmark'
 import { Gear } from '@styled-icons/bootstrap/Gear'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../redux/userSlice'
 
 const StyledDropdown = styled.div`
   position: relative;
@@ -89,6 +91,7 @@ const StyledGear = styled(Gear)`
 
 const AvatarDropdown = () => {
 
+  const user = useSelector(selectUser)
   const [open, setOpen] = useState(false)
 
   const handleClose = () => {
@@ -101,7 +104,7 @@ const AvatarDropdown = () => {
       <StyledAvatar src="/assets/avatars/harley_avatar.jpeg" alt="" onClick={() => setOpen(!open)} />
       <StyledDropdownContent open={open}>
         <StyledOption>
-          <StyledLink to="/profile/cristiano" onClick={handleClose}>
+          <StyledLink to={`/profile/${user.username}`} onClick={handleClose}>
             <StyledPerson />
             <span>Profile</span>
           </StyledLink>
