@@ -13,6 +13,11 @@ router.get('/:id', async (req, res) => {
   res.json(post)
 })
 
+router.get('/username/:username', async (req, res) => {
+  const posts = await Posts.findAll({ where: { username: req.params.username } })
+  res.json(posts)
+})
+
 router.post('/', async (req, res) => {
   const post = req.body
   console.log(req.body)
