@@ -38,8 +38,6 @@ const Feed = () => {
     })
   }, [])
 
-  console.log(posts)
-
   return (
     <div>
       <Navbar />
@@ -49,9 +47,7 @@ const Feed = () => {
           <Stories />
 
           <div>
-            <MediumPost />
-            <MediumPost />
-            <MediumPost />
+            {posts.map((post) => <MediumPost post={post}/>)}
           </div>
         </StyledLeft>
 

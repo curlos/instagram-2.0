@@ -207,7 +207,7 @@ const NewPostModal = ({ open, setOpen }: Props) => {
                 <StyledBold>curlosmart</StyledBold>
               </StyledUser>
 
-              <StyledTextarea placeholder="Add a comment..." value={input} onChange={(e) => setInput(e.target.value)} />
+              <StyledTextarea placeholder="Add a caption..." value={input} onChange={(e) => setInput(e.target.value)} />
 
               <StyledExtraInfoContainer>
                 <StyledEmojiButton onClick={() => setShowEmojis(!showEmojis)}>

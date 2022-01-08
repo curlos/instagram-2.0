@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { FacebookSquare } from 'styled-icons/boxicons-logos'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { login } from '../redux/userSlice'
 
 const StyledBody = styled.div`
   min-height: 100vh;
@@ -172,14 +174,10 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
+  const dispatch = useDispatch()
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    console.log('bumj')
-    console.log({
-      username: username,
-      password: password
-    })
 
     const response = await axios.post(process.env.REACT_APP_SERVER_URL + '/auth/login', {
       username: username,
@@ -189,11 +187,11 @@ const Login = () => {
     if (response.data.error) {
       alert(response.data.error)
     } else {
+      console.log(response.data)
+
       sessionStorage.setItem('accessToken', response.data)
       navigate('/')
     }
-    console.log('')
-    console.log(response.data)
   }
 
   return (

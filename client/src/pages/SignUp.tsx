@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { FacebookSquare } from 'styled-icons/boxicons-logos'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const StyledBody = styled.div`
   width: 100vw;
@@ -172,12 +173,33 @@ const SignUp = () => {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.stopPropagation()
-  }
+  const navigate = useNavigate()
 
   const checkAllValidInputs = () => {
     return email !== ''
+  }
+
+  const handleSignUp = async (e: any) => {
+    e.preventDefault()
+    console.log('signing up')
+    console.log({
+      email,
+      fullName,
+      username,
+      password
+    })
+
+    const response = await axios.post('http://localhost:3001/auth/signup', {
+      email,
+      fullName,
+      username,
+      password
+    })
+
+    if (!response.data.error) {
+      navigate('/login')
+    }
+    console.log(response.data)
   }
 
   return (
@@ -188,7 +210,7 @@ const SignUp = () => {
         </StyledLeft>
 
         <StyledRight>
-          <StyledForm onSubmit={handleSubmit}>
+          <StyledForm onSubmit={handleSignUp}>
             <StyledLogo src="/assets/logo.png" />
 
             <StyledHeader>Sign up to see photos and videos from your friends.</StyledHeader>
@@ -211,12 +233,12 @@ const SignUp = () => {
             <StyledPasswordContainer>
               <StyledPasswordInput type={`${showPassword ? 'text' : 'password'}`} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
               <StyledShowButton type="button" onClick={(e) => {
-                e.stopPropagation()
+                e.preventDefault()
                 setShowPassword(!showPassword)
               }}>Show</StyledShowButton>
             </StyledPasswordContainer>
 
-            <StyledButton allValidInputs={checkAllValidInputs()}>Sign Up</StyledButton>
+            <StyledButton allValidInputs={checkAllValidInputs()} onClick={handleSignUp}>Sign Up</StyledButton>
           </StyledForm>
 
           <StyledBottomContainer>

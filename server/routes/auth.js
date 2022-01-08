@@ -7,20 +7,30 @@ const { sign } = require('jsonwebtoken')
 
 
 router.post('/signup', async (req, res) => {
-  const { username, password } = req.body
+  const { email, fullName, username, password } = req.body
+  
+  console.log(req.body)
 
   const user = await Users.findOne({ where: { username: username } })
 
-  if (user) res.json({ error: 'Username taken'})
-
-  bcrypt.hash(password, 10).then((hash) => {
-    Users.create({
-      username: username,
-      password: hash,
-    }).then((newUser) => {
-      res.json(newUser)
+  if (!email || !fullName || !username || !password) {
+    res.json({ error: 'Missing required credentials' })
+  } else if (user) {
+    console.log('2')
+    res.json({ error: 'Username taken'})
+  } else {
+    console.log('3')
+    bcrypt.hash(password, 10).then((hash) => {
+      Users.create({
+        email: email,
+        fullName: fullName,
+        username: username,
+        password: hash,
+      }).then((newUser) => {
+        res.json(newUser)
+      })
     })
-  })
+  }
 })
 
 router.post('/login', async (req, res) => {

@@ -144,10 +144,20 @@ const StyledMoreButton = styled.button`
   cursor: pointer;
 `
 
+interface Props {
+  post: any,
+}
 
-const MediumPost = () => {
+
+const MediumPost = ({ post }: Props) => {
 
   const [open, setOpen] = useState(false)
+
+  const handlePostComment = async () => {
+
+  }
+
+  console.log(post)
 
   return (
     <StyledBody>
@@ -156,13 +166,13 @@ const MediumPost = () => {
           <StyledLink to="/profile/cristiano">
             <StyledSmallAvatar src="/assets/avatars/harley_avatar.jpeg" />
           </StyledLink>
-          <StyledLink to="/profile/cristiano">brkicks</StyledLink>
+          <StyledLink to={`/profile/${post.username}`}>{post.username}</StyledLink>
         </StyledTopLeft>
 
         <StyledDots onClick={() => setOpen(true)} />
       </StyledTop>
 
-      <StyledImg imgSrc={`/assets/posts/wonder_woman.jpeg`} />
+      <StyledImg imgSrc={`/assets/posts/thanos.jpeg`} />
 
       <StyledInfoContainer>
         <StyledIcons>

@@ -8,6 +8,8 @@ import { Chat } from '@styled-icons/bootstrap/Chat'
 import { PlusSquare } from '@styled-icons/bootstrap/PlusSquare'
 import AvatarDropdown from './AvatarDropdown'
 import NewPostModal from './NewPostModal'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../redux/userSlice'
 
 const StyledBody = styled.div`
   display: flex;
@@ -90,8 +92,11 @@ const StyledRight = styled(StyledInnerDiv)`
 
 
 const Navbar = () => {
+  const user = useSelector(selectUser)
   const [searchQuery, setSearchQuery] = useState('')
   const [open, setOpen] = useState(false)
+
+  console.log(user)
 
   return (
     <StyledBody>
