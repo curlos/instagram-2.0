@@ -57,7 +57,11 @@ const StyledBookmark = styled(Bookmark)`
   color: black;
 `
 
-const ProfilePosts = () => {
+interface Props {
+  profilePosts: any
+}
+
+const ProfilePosts = ({ profilePosts }: Props) => {
   const location = useLocation()
   const [postsType, setPostsType] = useState(location.pathname.includes('/saved') ? 'SAVED' : 'POSTS')
 
@@ -65,9 +69,7 @@ const ProfilePosts = () => {
     setPostsType(location.pathname.includes('/saved') ? 'SAVED' : 'POSTS')
   }, [location.pathname])
 
-  console.log(location)
-
-  console.log(postsType)
+  console.log(profilePosts)
 
   return (
     <StyledBody>
@@ -84,14 +86,11 @@ const ProfilePosts = () => {
       </StyledPostTypesContainer>
 
       <StyledPosts>
-        <SmallPost />
-        <SmallPost />
-        <SmallPost />
-        <SmallPost />
-        <SmallPost />
-        <SmallPost />
-        <SmallPost />
-        <SmallPost />
+        {profilePosts.map((post: any) => {
+          return (
+            <SmallPost post={post} />
+          )
+        })}
       </StyledPosts>
     </StyledBody>
   )

@@ -24,6 +24,33 @@ const StyledInnerBody = styled.div`
 
 const Profile = () => {
 
+  const { username } = useParams()
+  const [profileInfo, setProfileInfo] = useState({})
+  const [profilePosts, setProfilePosts] = useState([])
+
+  console.log(username)
+
+  useEffect(() => {
+    getAllProfileData()
+  }, [])
+
+  const getAllProfileData = async () => {
+    setProfileInfo(await getProfileInfo())
+    setProfilePosts(await getProfilePosts())
+  }
+
+  const getProfileInfo = async () => {
+    const response = await axios.get(`http://localhost:3001/users/${username}`)
+    return response.data
+  }
+
+  const getProfilePosts = async () => {
+    const response = await axios.get(`http://localhost:3001/posts/username/${username}`)
+    return response.data
+  }
+
+  console.log(profileInfo)
+  console.log(profilePosts)
 
 
   return (
@@ -31,8 +58,8 @@ const Profile = () => {
       <Navbar />
       <StyledBody>
         <StyledInnerBody>
-          <ProfileInfo />
-          <ProfilePosts />
+          <ProfileInfo profileInfo={profileInfo} profilePosts={profilePosts} />
+          <ProfilePosts profilePosts={profilePosts} />
         </StyledInnerBody>
       </StyledBody>
     </div>

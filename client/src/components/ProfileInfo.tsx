@@ -124,9 +124,16 @@ const StyledFollowedBy = styled.div`
   color: gray;
 `
 
-const ProfileInfo = () => {
+interface Props {
+  profileInfo: any,
+  profilePosts: any
+}
+
+const ProfileInfo = ({ profileInfo, profilePosts }: Props) => {
 
   const [open, setOpen] = useState(false)
+
+  console.log(profileInfo)
 
   return (
     <StyledBody>
@@ -137,7 +144,7 @@ const ProfileInfo = () => {
       <StyledRight>
         <StyledRightTop>
           <StyledName>
-            cristiano
+            {profileInfo.username}
             <StyledCheckmark />
           </StyledName>
 
@@ -157,7 +164,7 @@ const ProfileInfo = () => {
 
         <StyledStats>
           <StyledStat>
-            <StyledBold>3,216</StyledBold> posts
+            <StyledBold>{profilePosts.length}</StyledBold> posts
           </StyledStat>
 
           <StyledStat>
@@ -170,12 +177,14 @@ const ProfileInfo = () => {
         </StyledStats>
 
         <div>
-          <StyledBold>Cristiano Ronaldo</StyledBold>
+          <StyledBold>{profileInfo.fullName}</StyledBold>
         </div>
 
-        <StyledLinkContainer>
-          <StyledLink>www.cristianoronaldo.com</StyledLink>
-        </StyledLinkContainer>
+        {profileInfo.website ? (
+          <StyledLinkContainer>
+            <StyledLink>{profileInfo.website}</StyledLink>
+          </StyledLinkContainer>
+        ) : null}
 
         <StyledFollowedBy>
           Followed by <StyledBlack>kingjames</StyledBlack> and <StyledBlack>brkicks</StyledBlack>

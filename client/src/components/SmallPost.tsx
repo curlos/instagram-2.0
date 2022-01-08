@@ -47,7 +47,14 @@ const StyledBody = styled(Link)`
   }
 `
 
-const SmallPost = () => {
+interface Props {
+  post: any
+}
+
+const SmallPost = ({ post }: Props) => {
+
+  console.log(post)
+
   return (
     <StyledBody to="/post/1">
       <StyledIcons>
