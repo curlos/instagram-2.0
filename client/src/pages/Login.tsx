@@ -189,7 +189,6 @@ const Login = () => {
     } else {
       console.log(response.data)
       dispatch(login(response.data))
-      sessionStorage.setItem('user', JSON.stringify(response.data))
       navigate('/')
     }
   }

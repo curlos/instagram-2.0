@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Heart } from 'styled-icons/bootstrap'
 
@@ -61,7 +61,19 @@ const StyledLightGray = styled.div`
   color: #A9A9A9;
 `
 
-const LargeComment = () => {
+interface Props {
+  comment: any
+}
+
+const LargeComment = ({ comment }: Props) => {
+
+  const [author, setAuthor] = useState()
+
+  useEffect(() => {
+
+  }, [comment])
+
+  console.log(comment)
   return (
     <div>
       <StyledComment>
@@ -70,11 +82,11 @@ const LargeComment = () => {
           <div>
             <StyledBold>05alissa</StyledBold>
             <StyledCommentDesc>
-              I think Im not the only one to be sad about the fact that all women from One Piece look absolutely the same. Same face,...
+              {comment.text}
               <StyledMoreButton>more</StyledMoreButton>
             </StyledCommentDesc>
             <StyledExtraDetails>
-              <StyledLightGray>5h</StyledLightGray>
+              <StyledLightGray>{new Date(comment.createdAt).toLocaleDateString()}</StyledLightGray>
               <div>72 likes</div>
               <div>Reply</div>
             </StyledExtraDetails>

@@ -90,6 +90,22 @@ const StyledRight = styled(StyledInnerDiv)`
   margin-left: 10px;
 `
 
+const StyledLogin = styled(Link)`
+  padding: 7px;
+  background-color: #0095F6;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #0084D6;
+  }
+`
+
 
 const Navbar = () => {
   const user = useSelector(selectUser)
@@ -109,14 +125,20 @@ const Navbar = () => {
           <StyledInput placeholder="Search" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
         </StyledInnerDiv>
 
-        <StyledRight>
-          <StyledHome />
-          <StyledChat />
-          <StyledPlus onClick={() => setOpen(true)} />
-          <StyledCompass />
-          <StyledHeart />
-          <AvatarDropdown />
-        </StyledRight>
+        <div>
+          {user ? (
+            <StyledRight>
+              <StyledHome />
+              <StyledChat />
+              <StyledPlus onClick={() => setOpen(true)} />
+              <StyledCompass />
+              <StyledHeart />
+              <AvatarDropdown />
+            </StyledRight>
+          ) : (
+            <StyledLogin to="/login">Login</StyledLogin>
+          )}
+        </div>
       </StyledInnerBody>
 
       <NewPostModal open={open} setOpen={setOpen} />

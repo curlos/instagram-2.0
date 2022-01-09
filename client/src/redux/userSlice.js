@@ -9,9 +9,12 @@ export const userSlice = createSlice({
     login: (state, action) => {
       console.log(action)
       state.user = action.payload
+      sessionStorage.setItem('user', JSON.stringify(action.payload))
     },
     logout: (state) => {
+      console.log('setting state')
       state.user = null
+      sessionStorage.setItem('user', null)
     },
   }
 })

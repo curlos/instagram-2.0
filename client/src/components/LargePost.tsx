@@ -139,8 +139,17 @@ const StyledComments = styled.div`
   padding: 10px;
 `
 
+interface Props {
+  post: any,
+  author: any,
+  comments: any
+}
 
-const LargePost = () => {
+const LargePost = ({ post, author, comments }: Props) => {
+
+  console.log(post)
+  console.log(author)
+
   return (
     <StyledBody>
 
@@ -150,38 +159,29 @@ const LargePost = () => {
       <StyledRight>
         <StyledTop>
           <StyledTopLeft>
-            <StyledLink to="/profile/cristiano">
+            <StyledLink to={`/profile/${author.username}`}>
               <StyledSmallAvatar src="/assets/avatars/harley_avatar.jpeg" />
             </StyledLink>
-            <StyledLink to="/profile/cristiano">brkicks</StyledLink>
+            <StyledLink to={`/profile/${author.username}`}>{author.username}</StyledLink>
           </StyledTopLeft>
 
           <StyledDots />
         </StyledTop>
 
         <StyledComments>
-          <StyledBold>brkicks</StyledBold>
-          <StyledDesc>一番くじ ワンピース WT100記念 尾田栄一郎描き下ろし 大海賊百景
-            明日1/5（水）より順次発売！
-
-            尾田っち描きおろしの「大海賊百景」が一番くじのアイテムに✨
-
-            A賞は、約100㎝のビッグサイズ「 大海賊百景」見開きボード！
-            そのほか、ルフィをはじめ7人の猛者達のフィギュアや記念プレートなど、見逃せないグッズがめじろおし👀✨
-
-            お見逃しなく！
-
-            ※1枚目の写真は「ジャンプフェスタ2022 幕張メッセ」で撮影したものです。
-
-            #ONEPIECE #ワンピース #漫画 #manga #尾田栄一郎 #eiichirooda #フィギュア #figure #一番くじ #1bankuji #ichibanKUJI #BANDAISPIRITS #バンダイスピリッツ
+          <StyledBold>{author.username}</StyledBold>
+          <StyledDesc>
+            <span>
+              {post.caption}
+            </span>
             <StyledMoreButton>more</StyledMoreButton>
           </StyledDesc>
 
-          <LargeComment />
-          <LargeComment />
-          <LargeComment />
-          <LargeComment />
-          <LargeComment />
+          {comments.map((comment: any) => {
+            return (
+              <LargeComment comment={comment} />
+            )
+          })}
         </StyledComments>
 
         <StyledInfoContainer>

@@ -7,6 +7,9 @@ import { EmojiSmile } from 'styled-icons/bootstrap';
 import { ChevronDown } from '@styled-icons/bootstrap/ChevronDown'
 import { Location } from '@styled-icons/evil/Location'
 import { ArrowLeft } from '@styled-icons/bootstrap/ArrowLeft'
+import { useSelector } from 'react-redux';
+import { selectUser } from '../redux/userSlice';
+import axios from 'axios';
 
 const StyledModal = styled.div`
   display: flex;
@@ -174,6 +177,7 @@ interface Props {
 
 const NewPostModal = ({ open, setOpen }: Props) => {
 
+  const user = useSelector(selectUser)
   const [input, setInput] = useState('')
   const [showEmojis, setShowEmojis] = useState(false)
 
@@ -183,6 +187,15 @@ const NewPostModal = ({ open, setOpen }: Props) => {
     sym.forEach((el: any) => codesArray.push('0x' + el))
     let emoji = String.fromCodePoint(...codesArray)
     setInput(input + emoji)
+  }
+
+  const handleCreateNewPost = async () => {
+    const response = await axios.post(`http://localhost:3001/posts`, {
+      images: '',
+      caption: input,
+      username: user.username
+    })
+    console.log(response.data)
   }
 
   return (
@@ -195,7 +208,7 @@ const NewPostModal = ({ open, setOpen }: Props) => {
               <StyledArrowLeft />
             </div>
             <StyledBold>Create new post</StyledBold>
-            <StyledPostButton>Share</StyledPostButton>
+            <StyledPostButton onClick={handleCreateNewPost}>Share</StyledPostButton>
           </StyledTop>
 
           <StyledMiddle>
@@ -203,8 +216,8 @@ const NewPostModal = ({ open, setOpen }: Props) => {
 
             <StyledMiddleRight>
               <StyledUser>
-                <StyledAvatar src="/assets/avatars/black_cat.jpeg" />
-                <StyledBold>curlosmart</StyledBold>
+                <StyledAvatar src={user.avatar || `/assets/avatars/default_avatar.jpeg`} />
+                <StyledBold>{user.username}</StyledBold>
               </StyledUser>
 
               <StyledTextarea placeholder="Add a caption..." value={input} onChange={(e) => setInput(e.target.value)} />
@@ -218,6 +231,17 @@ const NewPostModal = ({ open, setOpen }: Props) => {
                   {input.length}/2,200
                 </StyledChracterLimit>
               </StyledExtraInfoContainer>
+
+              {showEmojis && (
+                <Picker
+                  onSelect={addEmoji}
+                  style={{
+                    position: "absolute",
+                    maxWidth: "320px",
+                    borderRadius: "20px"
+                  }}
+                />
+              )}
 
               <StyledExtraInfoContainer>
                 Add location
@@ -234,17 +258,6 @@ const NewPostModal = ({ open, setOpen }: Props) => {
 
                 <StyledChevronDown />
               </StyledExtraInfoContainer>
-
-              {showEmojis && (
-                <Picker
-                  onSelect={addEmoji}
-                  style={{
-                    position: "absolute",
-                    maxWidth: "320px",
-                    borderRadius: "20px"
-                  }}
-                />
-              )}
             </StyledMiddleRight>
 
 

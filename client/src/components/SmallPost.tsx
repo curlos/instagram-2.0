@@ -56,7 +56,7 @@ const SmallPost = ({ post }: Props) => {
   console.log(post)
 
   return (
-    <StyledBody to="/post/1">
+    <StyledBody to={`/post/${post.id}`}>
       <StyledIcons>
         <StyledIconContainer>
           <StyledHeart />

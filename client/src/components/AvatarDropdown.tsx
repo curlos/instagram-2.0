@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import { Person } from '@styled-icons/bootstrap/Person'
 import { Bookmark } from '@styled-icons/bootstrap/Bookmark'
 import { Gear } from '@styled-icons/bootstrap/Gear'
-import { useSelector } from 'react-redux'
-import { selectUser } from '../redux/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectUser, logout } from '../redux/userSlice'
 
 const StyledDropdown = styled.div`
   position: relative;
@@ -65,9 +65,14 @@ const StyledLink = styled(Link)`
   }
 `
 
-const StyledLogout = styled(StyledLink)`
+const StyledLogout = styled.div`
   border-top: 1px solid #DBDBDB;
   padding: 12px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #FAFAFA;
+  }
 `
 
 const StyledPerson = styled(Person)`
@@ -92,9 +97,16 @@ const StyledGear = styled(Gear)`
 const AvatarDropdown = () => {
 
   const user = useSelector(selectUser)
+  const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
 
   const handleClose = () => {
+    setOpen(false)
+  }
+
+  const handleLogout = () => {
+    console.log('logout')
+    dispatch(logout())
     setOpen(false)
   }
 
@@ -119,7 +131,7 @@ const AvatarDropdown = () => {
             <span>Settings</span>
           </StyledLink>
 
-          <StyledLogout to="/login" onClick={handleClose}>
+          <StyledLogout onClick={handleLogout}>
             Log Out
           </StyledLogout>
         </StyledOption>

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
@@ -66,11 +67,16 @@ const ChangePassword = ({ user }: Props) => {
   const [newPassword, setNewPassword] = useState('')
   const [confirmNewPassword, setConfirmNewPassword] = useState('')
 
+  const handleChangePassword = async () => {
+    const response = await axios.put(``)
+    console.log(response.data)
+  }
+
   return (
     <StyledBody>
       <StyledTop>
         <StyledAvatar src="/assets/avatars/black_cat.jpeg" alt="" />
-        <h2>curlosmart</h2>
+        <h2>{user.username}</h2>
       </StyledTop>
 
       <StyledInputContainer>
