@@ -2,9 +2,10 @@ const express = require('express')
 const session = require("express-session")
 const app = express()
 const cors = require('cors')
+const multer = require('multer')
+const logger = require('morgan');
 const dotenv = require('dotenv').config()
 const passport = require("passport")
-const logger = require('morgan')
 
 app.use(cors())
 app.use(logger('dev'))
@@ -29,6 +30,9 @@ app.use('/auth', authRouter)
 
 const usersRouter = require('./routes/users')
 app.use('/users', usersRouter)
+
+const imagesRouter = require('./routes/images')
+app.use('/images', imagesRouter)
 
 
 // Sync database and start server
