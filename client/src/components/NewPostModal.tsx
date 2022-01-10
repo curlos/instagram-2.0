@@ -11,6 +11,7 @@ import { ImageAdd } from '@styled-icons/boxicons-regular/ImageAdd'
 import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/userSlice';
 import axios from 'axios';
+import { postImage } from '../utils/postImage';
 
 const StyledModal = styled.div`
   display: flex;
@@ -74,7 +75,7 @@ interface StyledMiddleLeftProps {
 
 const StyledMiddleLeft = styled.div<StyledMiddleLeftProps>`
   aspect-ratio: 1 / 1;
-  width: 60%;
+  max-width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -192,7 +193,8 @@ const NewPostModal = ({ open, setOpen }: Props) => {
 
   const user = useSelector(selectUser)
   const [input, setInput] = useState('')
-  const [selectedFile, setSelectedFile] = useState(null)
+  const [selectedFile, setSelectedFile] = useState<File>()
+  const [image, setImage] = useState(null)
   const filePickerRef = useRef<any>(null)
   const [showEmojis, setShowEmojis] = useState(false)
 
@@ -205,11 +207,26 @@ const NewPostModal = ({ open, setOpen }: Props) => {
   }
 
   const handleCreateNewPost = async () => {
-    const response = await axios.post(`http://localhost:3001/posts`, {
-      images: '',
+    console.log('posting')
+    console.log(selectedFile)
+
+    let imagePath = null
+
+    if (selectedFile) {
+      console.log(selectedFile)
+      const results = await postImage(selectedFile)
+      imagePath = results.imagePath
+    }
+
+    const body = {
+      images: imagePath,
       caption: input,
       username: user.username
-    })
+    }
+
+    console.log(body)
+
+    const response = await axios.post(`http://localhost:3001/posts`, body)
     console.log(response.data)
   }
 
@@ -218,10 +235,11 @@ const NewPostModal = ({ open, setOpen }: Props) => {
     console.log(e.target.files)
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0])
+      setSelectedFile(e.target.files[0])
     }
 
     reader.onload = (readerEvent: any) => [
-      setSelectedFile(readerEvent.target.result)
+      setImage(readerEvent.target.result)
     ]
   }
 
@@ -239,7 +257,7 @@ const NewPostModal = ({ open, setOpen }: Props) => {
           </StyledTop>
 
           <StyledMiddle>
-            <StyledMiddleLeft imageFile={selectedFile} onClick={() => filePickerRef.current.click()}>
+            <StyledMiddleLeft imageFile={image} onClick={() => filePickerRef.current.click()}>
               <StyledImageAdd />
               <input type="file"
                 ref={filePickerRef}

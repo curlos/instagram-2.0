@@ -51,13 +51,13 @@ const StyledDots = styled(DotsHorizontalRounded)`
 `
 
 interface StyledImgProps {
-  imgSrc: string
+  imgSrc: any
 }
 
 const StyledImg = styled.div<StyledImgProps>`
-  background-image: ${props => `url('${props.imgSrc}')`};
+  background-image: url(${props => props.imgSrc || '/assets/posts/harley.jpeg'});
   background-size: cover;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1/1;
 `
 
 const StyledIcons = styled.div`
@@ -157,6 +157,9 @@ const MediumPost = ({ post }: Props) => {
 
   }
 
+  console.log(post)
+  console.log(process.env.REACT_APP_SERVER_URL + post.images)
+
   return (
     <StyledBody>
       <StyledTop>
@@ -170,7 +173,7 @@ const MediumPost = ({ post }: Props) => {
         <StyledDots onClick={() => setOpen(true)} />
       </StyledTop>
 
-      <StyledImg imgSrc={`/assets/posts/harley.jpeg`} />
+      <StyledImg imgSrc={process.env.REACT_APP_SERVER_URL + post.images} />
 
       <StyledInfoContainer>
         <StyledIcons>
@@ -196,20 +199,8 @@ const MediumPost = ({ post }: Props) => {
           </div>
 
           <div>
-            <StyledBold>brkicks</StyledBold>
-            <StyledDesc>一番くじ ワンピース WT100記念 尾田栄一郎描き下ろし 大海賊百景
-              明日1/5（水）より順次発売！
-
-              尾田っち描きおろしの「大海賊百景」が一番くじのアイテムに✨
-
-              A賞は、約100㎝のビッグサイズ「 大海賊百景」見開きボード！
-              そのほか、ルフィをはじめ7人の猛者達のフィギュアや記念プレートなど、見逃せないグッズがめじろおし👀✨
-
-              お見逃しなく！
-
-              ※1枚目の写真は「ジャンプフェスタ2022 幕張メッセ」で撮影したものです。
-
-              #ONEPIECE #ワンピース #漫画 #manga #尾田栄一郎 #eiichirooda #フィギュア #figure #一番くじ #1bankuji #ichibanKUJI #BANDAISPIRITS #バンダイスピリッツ
+            <StyledBold>{post.username}</StyledBold>
+            <StyledDesc>{post.caption}
               <StyledMoreButton>more</StyledMoreButton>
             </StyledDesc>
             <StyledViewComments>View all 20 comments</StyledViewComments>

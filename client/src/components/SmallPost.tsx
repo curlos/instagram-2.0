@@ -27,10 +27,14 @@ const StyledChat = styled(ChatFill)`
   margin-right: 5px;
 `
 
-const StyledBody = styled(Link)`
-  background-image: url('/assets/posts/harley.jpeg');
+interface StyledBodyProps {
+  imgSrc: any;
+}
+
+const StyledBody = styled(Link) <StyledBodyProps>`
+  background-image: url(${props => props.imgSrc || '/assets/posts/harley.jpeg'});
   background-size: cover;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1/1;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -39,7 +43,7 @@ const StyledBody = styled(Link)`
   text-decoration: none;
 
   &:hover {
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/assets/posts/harley.jpeg');
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${props => props.imgSrc || '/assets/posts/harley.jpeg'});
   }
 
   &:hover ${StyledIcons} {
@@ -56,7 +60,7 @@ const SmallPost = ({ post }: Props) => {
   console.log(post)
 
   return (
-    <StyledBody to={`/post/${post.id}`}>
+    <StyledBody to={`/post/${post.id}`} imgSrc={process.env.REACT_APP_SERVER_URL + post.images}>
       <StyledIcons>
         <StyledIconContainer>
           <StyledHeart />

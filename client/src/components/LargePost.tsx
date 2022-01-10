@@ -121,9 +121,13 @@ const StyledMoreButton = styled.button`
   cursor: pointer;
 `
 
-const StyledLeft = styled.div`
+interface StyledLeftProps {
+  imageFile: any,
+}
+
+const StyledLeft = styled.div<StyledLeftProps>`
   width: 60%;
-  background-image: url('/assets/posts/harley.jpeg');
+  background-image: url(${props => props.imageFile || '/assets/posts/harley.jpeg'});
   background-size: cover;
   aspect-ratio: 1/1;
 `
@@ -154,7 +158,7 @@ const LargePost = ({ post, author, comments }: Props) => {
     <StyledBody>
 
 
-      <StyledLeft />
+      <StyledLeft imageFile={process.env.REACT_APP_SERVER_URL + post.images} />
 
       <StyledRight>
         <StyledTop>
