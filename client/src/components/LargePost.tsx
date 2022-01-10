@@ -123,7 +123,7 @@ const StyledMoreButton = styled.button`
 
 const StyledLeft = styled.div`
   width: 60%;
-  background-image: url('/assets/posts/wonder_woman.jpeg');
+  background-image: url('/assets/posts/harley.jpeg');
   background-size: cover;
   aspect-ratio: 1/1;
 `

@@ -170,7 +170,7 @@ const MediumPost = ({ post }: Props) => {
         <StyledDots onClick={() => setOpen(true)} />
       </StyledTop>
 
-      <StyledImg imgSrc={`/assets/posts/thanos.jpeg`} />
+      <StyledImg imgSrc={`/assets/posts/harley.jpeg`} />
 
       <StyledInfoContainer>
         <StyledIcons>

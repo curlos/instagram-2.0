@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { XLg } from '@styled-icons/bootstrap/XLg'
 import TextareaAutosize from 'react-textarea-autosize';
@@ -7,6 +7,7 @@ import { EmojiSmile } from 'styled-icons/bootstrap';
 import { ChevronDown } from '@styled-icons/bootstrap/ChevronDown'
 import { Location } from '@styled-icons/evil/Location'
 import { ArrowLeft } from '@styled-icons/bootstrap/ArrowLeft'
+import { ImageAdd } from '@styled-icons/boxicons-regular/ImageAdd'
 import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/userSlice';
 import axios from 'axios';
@@ -64,17 +65,23 @@ const StyledTop = styled.div`
 const StyledMiddle = styled.div`
   display: flex;
   width: 100%;
-  height: 89.8%;
+  height: 90%;
 `
 
-const StyledMiddleLeft = styled.div`
+interface StyledMiddleLeftProps {
+  imageFile: any,
+}
+
+const StyledMiddleLeft = styled.div<StyledMiddleLeftProps>`
   aspect-ratio: 1 / 1;
+  width: 60%;
   display: flex;
-  height: 100%;
   justify-content: center;
-  background-image: url('/assets/posts/harley_post.jpeg');
+  align-items: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${props => props.imageFile || '/assets/posts/harley.jpeg'});
   background-size: cover;
   border-bottom-left-radius: 12px;
+  cursor: pointer;
 `
 
 const StyledMiddleRight = styled.div`
@@ -170,6 +177,12 @@ const StyledFooter = styled.div`
   padding: 10px;
 `
 
+const StyledImageAdd = styled(ImageAdd)`
+  width: 30px;
+  height: 30px;
+  color: white;
+`
+
 interface Props {
   open: boolean;
   setOpen: any;
@@ -179,6 +192,8 @@ const NewPostModal = ({ open, setOpen }: Props) => {
 
   const user = useSelector(selectUser)
   const [input, setInput] = useState('')
+  const [selectedFile, setSelectedFile] = useState(null)
+  const filePickerRef = useRef<any>(null)
   const [showEmojis, setShowEmojis] = useState(false)
 
   const addEmoji = (e: any) => {
@@ -198,6 +213,18 @@ const NewPostModal = ({ open, setOpen }: Props) => {
     console.log(response.data)
   }
 
+  const handleAddFile = (e: any) => {
+    const reader = new FileReader()
+    console.log(e.target.files)
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0])
+    }
+
+    reader.onload = (readerEvent: any) => [
+      setSelectedFile(readerEvent.target.result)
+    ]
+  }
+
   return (
     open ? (
       <StyledModal>
@@ -212,7 +239,14 @@ const NewPostModal = ({ open, setOpen }: Props) => {
           </StyledTop>
 
           <StyledMiddle>
-            <StyledMiddleLeft />
+            <StyledMiddleLeft imageFile={selectedFile} onClick={() => filePickerRef.current.click()}>
+              <StyledImageAdd />
+              <input type="file"
+                ref={filePickerRef}
+                hidden
+                onChange={handleAddFile}
+              />
+            </StyledMiddleLeft>
 
             <StyledMiddleRight>
               <StyledUser>
