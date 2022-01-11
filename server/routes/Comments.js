@@ -4,18 +4,28 @@ const { Comments } = require('../models')
 const { validateToken } = require('../middleware/AuthMiddleware')
 
 router.get('/:postId', async (req, res) => {
-  const postId = req.params.postId
-  const comments = await Comments.findAll({ where: { PostId: postId}})
-  res.json(comments)
+  try {
+    const postId = req.params.postId
+    const comments = await Comments.findAll({ where: { PostId: postId}})
+    res.json(comments)
+  } catch (err) {
+    console.error(err)
+  }
 })
 
 router.post('/', async (req, res) => {
-  const comment = req.body
-  const username = req.body.username
-  comment.username = username
+  try {
+    const comment = req.body
+    const username = req.body.username
+    comment.username = username
 
-  await Comments.create(comment)
-  res.json(comment)
+    console.log(comment)
+
+    await Comments.create(comment)
+    res.json(comment)
+  } catch (err) {
+    console.error(err)
+  }
 })
 
 

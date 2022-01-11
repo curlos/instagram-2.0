@@ -4,6 +4,9 @@ import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
 import { EmojiSmile } from '@styled-icons/bootstrap/EmojiSmile'
 import TextareaAutosize from 'react-textarea-autosize';
+import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../redux/userSlice'
 
 const StyledBody = styled.div`
   background-color: #fff;
@@ -51,6 +54,7 @@ const StyledPostButton = styled.button<StyledPostButtonProps>`
 
 const NewCommentInput = () => {
 
+  const user = useSelector(selectUser)
   const [input, setInput] = useState('')
   const [showEmojis, setShowEmojis] = useState(false)
 
@@ -60,6 +64,14 @@ const NewCommentInput = () => {
     sym.forEach((el: any) => codesArray.push('0x' + el))
     let emoji = String.fromCodePoint(...codesArray)
     setInput(input + emoji)
+  }
+
+  const handlePostComment = async () => {
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/comments`, {
+      text: input,
+      username: user.username
+    })
+    console.log(response.data)
   }
 
   return (
@@ -82,7 +94,7 @@ const NewCommentInput = () => {
       )}
       <StyledTextarea placeholder="Add a comment..." value={input} onChange={(e) => setInput(e.target.value)} />
 
-      <StyledPostButton validInput={input !== ''}>Post</StyledPostButton>
+      <StyledPostButton validInput={input !== ''} onClick={handlePostComment}>Post</StyledPostButton>
     </StyledBody>
   )
 }

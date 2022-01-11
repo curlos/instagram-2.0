@@ -25,6 +25,9 @@ app.use('/posts', postRouter)
 const commentsRouter = require('./routes/comments')
 app.use('/comments', commentsRouter)
 
+const likesRouter = require('./routes/likes')
+app.use('/likes', likesRouter)
+
 const authRouter = require('./routes/auth')
 app.use('/auth', authRouter)
 

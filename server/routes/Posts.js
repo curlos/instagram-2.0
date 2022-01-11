@@ -3,12 +3,16 @@ const router = express.Router()
 const { Posts } = require('../models')
 
 router.get('/', async (req, res) => {
-  const listOfPosts = await Posts.findAll({
-    order: [
-      ['id', 'DESC']
-    ],
-  })
-  res.json(listOfPosts)
+  try {
+    const listOfPosts = await Posts.findAll({
+      order: [
+        ['id', 'DESC']
+      ],
+    })
+    res.json(listOfPosts)
+  } catch (err) {
+    console.error(err)
+  }
 })
 
 router.get('/:id', async (req, res) => {
@@ -18,20 +22,28 @@ router.get('/:id', async (req, res) => {
 })
 
 router.get('/username/:username', async (req, res) => {
-  const posts = await Posts.findAll({ 
-    where: { username: req.params.username },
-    order: [
-      ['id', 'DESC']
-    ],
- })
-  res.json(posts)
+  try {
+    const posts = await Posts.findAll({ 
+      where: { username: req.params.username },
+      order: [
+        ['id', 'DESC']
+      ],
+   })
+    res.json(posts)
+  } catch (err) {
+    console.error(err)
+  }
 })
 
 router.post('/', async (req, res) => {
-  const post = req.body
-  console.log(req.body)
-  await Posts.create(post)
-  res.json(post)
+  try {
+    const post = req.body
+    console.log(req.body)
+    await Posts.create(post)
+    res.json(post)
+  } catch (err) {
+    console.error(err)
+  }
 })
 
 module.exports = router;
