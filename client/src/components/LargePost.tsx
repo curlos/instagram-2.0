@@ -11,6 +11,7 @@ import LargeComment from './LargeComment'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../redux/userSlice'
+import { BookmarkFill } from 'styled-icons/bootstrap'
 
 const StyledBody = styled.div`
   display: flex;
@@ -100,6 +101,10 @@ const StyledBookmark = styled(Bookmark)`
   height: 24px;
 `
 
+const StyledBookmarkFill = styled(BookmarkFill)`
+  height: 24px;
+`
+
 const StyledInfoContainer = styled.div`
   background-color: #fff;
   border: 1px solid #DBDBDB;
@@ -159,9 +164,14 @@ interface Props {
 
 const LargePost = ({ post, author, comments }: Props) => {
 
+  console.log(post)
+
   const user = useSelector(selectUser)
   const [currPost, setCurrPost] = useState(post)
-  const liked = currPost.Likes.find((obj: any) => obj.UserId === user.id)
+  const [likes, setLikes] = useState(currPost.Likes || [])
+  const [bookmarks, setBookmarks] = useState(currPost.Bookmarks || [])
+  const liked = likes.find((obj: any) => obj.UserId === user.id)
+  const bookmarked = bookmarks.find((obj: any) => obj.UserId === user.id)
 
   console.log(currPost)
   console.log(author)
@@ -172,7 +182,17 @@ const LargePost = ({ post, author, comments }: Props) => {
       UserId: user.id
     }).then((response) => {
       console.log(response.data)
-      setCurrPost(response.data)
+      setLikes(response.data)
+    })
+  }
+
+  const handleBookmark = async () => {
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/bookmarks`, {
+      PostId: currPost.id,
+      UserId: user.id
+    }).then((response) => {
+      console.log(response.data)
+      setBookmarks(response.data)
     })
   }
 
@@ -223,14 +243,14 @@ const LargePost = ({ post, author, comments }: Props) => {
 
             </StyledIconsLeft>
 
-            <StyledIconButton>
-              <StyledBookmark />
+            <StyledIconButton onClick={handleBookmark}>
+              {bookmarked ? <StyledBookmarkFill /> : <StyledBookmark />}
             </StyledIconButton>
           </StyledIcons>
 
           <StyledDetailedInfo>
             <div>
-              <StyledBold>{currPost.Likes.length} {currPost.Likes.length === 1 ? 'like' : 'likes'}</StyledBold>
+              <StyledBold>{likes.length} {likes.length === 1 ? 'like' : 'likes'}</StyledBold>
             </div>
 
             <div>

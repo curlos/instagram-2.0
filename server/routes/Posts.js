@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { Posts, Likes } = require('../models')
+const { Posts, Likes, Bookmarks } = require('../models')
 
 router.get('/', async (req, res) => {
   try {
@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
       order: [
         ['id', 'DESC']
       ],
-      include: [Likes]
+      include: [Likes, Bookmarks]
     })
     res.json(listOfPosts)
   } catch (err) {
@@ -34,7 +34,7 @@ router.get('/test', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const id = req.params.id
   const post = await Posts.findByPk(id, {
-    include: [Likes]
+    include: [Likes, Bookmarks]
   })
   res.json(post)
 })
