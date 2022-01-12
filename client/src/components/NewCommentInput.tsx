@@ -52,7 +52,11 @@ const StyledPostButton = styled.button<StyledPostButtonProps>`
   opacity: ${props => props.validInput ? '100%' : '50%'};
 `
 
-const NewCommentInput = () => {
+interface Props {
+  handleComment?: any,
+}
+
+const NewCommentInput = ({ handleComment }: Props) => {
 
   const user = useSelector(selectUser)
   const [input, setInput] = useState('')
@@ -66,13 +70,13 @@ const NewCommentInput = () => {
     setInput(input + emoji)
   }
 
-  const handlePostComment = async () => {
-    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/comments`, {
-      text: input,
-      username: user.username
-    })
-    console.log(response.data)
-  }
+  // const handlePostComment = async () => {
+  //   const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/comments`, {
+  //     text: input,
+  //     username: user.username
+  //   })
+  //   console.log(response.data)
+  // }
 
   return (
     <StyledBody>
@@ -94,7 +98,7 @@ const NewCommentInput = () => {
       )}
       <StyledTextarea placeholder="Add a comment..." value={input} onChange={(e) => setInput(e.target.value)} />
 
-      <StyledPostButton validInput={input !== ''} onClick={handlePostComment}>Post</StyledPostButton>
+      <StyledPostButton validInput={input !== ''} onClick={() => handleComment(input)}>Post</StyledPostButton>
     </StyledBody>
   )
 }

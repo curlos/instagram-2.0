@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { Comments } = require('../models')
+const { Comments, Posts } = require('../models')
 const { validateToken } = require('../middleware/AuthMiddleware')
 
 router.get('/:postId', async (req, res) => {
@@ -15,14 +15,16 @@ router.get('/:postId', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const comment = req.body
-    const username = req.body.username
-    comment.username = username
+    const { PostId, text, username } = req.body
 
-    console.log(comment)
+    console.log(req.body)
 
-    await Comments.create(comment)
-    res.json(comment)
+    await Comments.create({ PostId, text, username })
+
+    const updatedPost = await Posts.findByPk(PostId, {
+      include: [Comments]
+    })
+    res.json(updatedPost.Comments)
   } catch (err) {
     console.error(err)
   }

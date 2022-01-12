@@ -28,7 +28,6 @@ const FullPost = () => {
     const postInfo = await getPost()
     setPost(postInfo)
     setAuthor(await getAuthor(postInfo))
-    setComments(await getComments(postInfo))
     setLoading(false)
   }
 
@@ -42,13 +41,7 @@ const FullPost = () => {
     return response.data
   }
 
-  const getComments = async (postInfo: any) => {
-    const response = await axios.get(`http://localhost:3001/comments/${postInfo.id}`)
-    return response.data
-  }
-
   console.log(post)
-  console.log(comments)
 
   return (
     <div>
@@ -57,7 +50,7 @@ const FullPost = () => {
         <div>Loading...</div>
       ) : (
         <StyledBody>
-          <LargePost post={post} author={author} comments={comments} />
+          <LargePost post={post} author={author} />
         </StyledBody>
       )}
     </div>

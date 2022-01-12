@@ -158,11 +158,10 @@ const StyledComments = styled.div`
 
 interface Props {
   post: any,
-  author: any,
-  comments: any
+  author: any
 }
 
-const LargePost = ({ post, author, comments }: Props) => {
+const LargePost = ({ post, author }: Props) => {
 
   console.log(post)
 
@@ -170,6 +169,7 @@ const LargePost = ({ post, author, comments }: Props) => {
   const [currPost, setCurrPost] = useState(post)
   const [likes, setLikes] = useState(currPost.Likes || [])
   const [bookmarks, setBookmarks] = useState(currPost.Bookmarks || [])
+  const [comments, setComments] = useState(currPost.Comments || [])
   const liked = likes.find((obj: any) => obj.UserId === user.id)
   const bookmarked = bookmarks.find((obj: any) => obj.UserId === user.id)
 
@@ -193,6 +193,17 @@ const LargePost = ({ post, author, comments }: Props) => {
     }).then((response) => {
       console.log(response.data)
       setBookmarks(response.data)
+    })
+  }
+
+  const handleComment = async (text: any) => {
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/comments`, {
+      PostId: currPost.id,
+      text: text,
+      username: user.username
+    }).then((response) => {
+      console.log(response.data)
+      setComments(response.data)
     })
   }
 
@@ -259,7 +270,7 @@ const LargePost = ({ post, author, comments }: Props) => {
           </StyledDetailedInfo>
         </StyledInfoContainer>
 
-        <NewCommentInput />
+        <NewCommentInput handleComment={handleComment} />
       </StyledRight>
     </StyledBody>
   )
