@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { Likes } = require('../models')
+const { Posts, Likes } = require('../models')
 
 router.post('/', async (req, res) => {
   try {
@@ -12,12 +12,18 @@ router.post('/', async (req, res) => {
 
     if (!found) {
       await Likes.create({ PostId: PostId, UserId: UserId })
-      res.json({ liked: true })
+      const updatedPost = await Posts.findByPk(PostId, {
+        include: [Likes]
+      })
+      res.json(updatedPost)
     } else {
       await Likes.destroy({
         where: { PostId: PostId, UserId, UserId }
       })
-      res.json({ liked: false })
+      const updatedPost = await Posts.findByPk(PostId, {
+        include: [Likes]
+      })
+      res.json(updatedPost)
     }
   } catch (err) {
     console.error(err)

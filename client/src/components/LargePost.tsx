@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Heart } from '@styled-icons/bootstrap/Heart'
@@ -8,6 +8,9 @@ import { Chat } from '@styled-icons/bootstrap/Chat'
 import { Bookmark } from '@styled-icons/bootstrap/Bookmark'
 import NewCommentInput from './NewCommentInput'
 import LargeComment from './LargeComment'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../redux/userSlice'
 
 const StyledBody = styled.div`
   display: flex;
@@ -83,6 +86,11 @@ const StyledHeart = styled(Heart)`
   height: 24px;
 `
 
+const StyledHeartFill = styled(HeartFill)`
+  height: 24px;
+  color: red;
+`
+
 const StyledChat = styled(Chat)`
   height: 24px;
   margin-bottom: 2px;
@@ -151,8 +159,22 @@ interface Props {
 
 const LargePost = ({ post, author, comments }: Props) => {
 
-  console.log(post)
+  const user = useSelector(selectUser)
+  const [currPost, setCurrPost] = useState(post)
+  const liked = currPost.Likes.find((obj: any) => obj.UserId === user.id)
+
+  console.log(currPost)
   console.log(author)
+
+  const handleLike = async () => {
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/likes`, {
+      PostId: currPost.id,
+      UserId: user.id
+    }).then((response) => {
+      console.log(response.data)
+      setCurrPost(response.data)
+    })
+  }
 
   return (
     <StyledBody>
@@ -191,8 +213,8 @@ const LargePost = ({ post, author, comments }: Props) => {
         <StyledInfoContainer>
           <StyledIcons>
             <StyledIconsLeft>
-              <StyledIconButton>
-                <StyledHeart />
+              <StyledIconButton onClick={handleLike}>
+                {liked ? <StyledHeartFill /> : <StyledHeart />}
               </StyledIconButton>
 
               <StyledIconButton>
@@ -208,7 +230,7 @@ const LargePost = ({ post, author, comments }: Props) => {
 
           <StyledDetailedInfo>
             <div>
-              <StyledBold>7,985 likes</StyledBold>
+              <StyledBold>{currPost.Likes.length} {currPost.Likes.length === 1 ? 'like' : 'likes'}</StyledBold>
             </div>
 
             <div>
