@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { Posts } = require('../models')
+const { Posts, Likes } = require('../models')
 
 router.get('/', async (req, res) => {
   try {
@@ -8,6 +8,22 @@ router.get('/', async (req, res) => {
       order: [
         ['id', 'DESC']
       ],
+      include: [Likes]
+    })
+    res.json(listOfPosts)
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+router.get('/test', async (req, res) => {
+  try {
+    const listOfPosts = await Posts.findAll({
+      order: [
+        ['id', 'DESC']
+      ],
+      attributes: [
+        ['username', 'name']]
     })
     res.json(listOfPosts)
   } catch (err) {
@@ -17,7 +33,9 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const id = req.params.id
-  const post = await Posts.findByPk(id)
+  const post = await Posts.findByPk(id, {
+    include: [Likes]
+  })
   res.json(post)
 })
 
