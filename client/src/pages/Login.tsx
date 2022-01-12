@@ -10,6 +10,7 @@ const StyledBody = styled.div`
   min-height: 100vh;
   width: 100vw;
   max-width: 100%;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

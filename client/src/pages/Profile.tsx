@@ -11,6 +11,7 @@ const StyledBody = styled.div`
   justify-content: center;
   width: 100vw;
   max-width: 100%;
+  min-height: 100vh;
   background-color: #FAFAFA;
 `
 
@@ -27,12 +28,15 @@ const Profile = () => {
   const { username } = useParams()
   const [profileInfo, setProfileInfo] = useState({})
   const [profilePosts, setProfilePosts] = useState([])
+  const [loading, setLoading] = useState(true)
 
   console.log(username)
 
   useEffect(() => {
-    getAllProfileData()
-  }, [])
+    getAllProfileData().then(() => {
+      setLoading(false)
+    })
+  }, [username])
 
   const getAllProfileData = async () => {
     setProfileInfo(await getProfileInfo())
@@ -57,10 +61,14 @@ const Profile = () => {
     <div>
       <Navbar />
       <StyledBody>
-        <StyledInnerBody>
-          <ProfileInfo profileInfo={profileInfo} profilePosts={profilePosts} />
-          <ProfilePosts profilePosts={profilePosts} />
-        </StyledInnerBody>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <StyledInnerBody>
+            <ProfileInfo profileInfo={profileInfo} profilePosts={profilePosts} />
+            <ProfilePosts profileInfo={profileInfo} profilePosts={profilePosts} />
+          </StyledInnerBody>
+        )}
       </StyledBody>
     </div>
   )

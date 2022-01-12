@@ -1,11 +1,15 @@
 const express = require('express')
-const { Users } = require('../models')
+const { Users, Likes, Bookmarks } = require('../models')
 
 const router = express.Router()
 
 router.get('/:username', async (req, res) => {
   try {
-    Users.findOne({ where: { username: req.params.username } }).then((user) => {
+    Users.findOne({ 
+      where: { username: req.params.username },
+      include: [Likes, Bookmarks]
+    
+    }).then((user) => {
       console.log(user)
       if (!user) {
         res.json({ error: 'User not found'})

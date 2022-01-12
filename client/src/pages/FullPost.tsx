@@ -8,6 +8,7 @@ import axios from 'axios'
 const StyledBody = styled.div`
   padding: 30px 100px;
   background-color: #FAFAFA;
+  height: 100vh;
 `
 
 const FullPost = () => {

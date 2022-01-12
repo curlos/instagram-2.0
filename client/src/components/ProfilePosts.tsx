@@ -4,6 +4,7 @@ import SmallPost from './SmallPost'
 import { Grid3x3 } from '@styled-icons/bootstrap/Grid3x3'
 import { Bookmark } from '@styled-icons/bootstrap/Bookmark'
 import { Link, useLocation } from 'react-router-dom'
+import axios from 'axios'
 
 const StyledBody = styled.div`
   max-width: 100%;
@@ -58,18 +59,33 @@ const StyledBookmark = styled(Bookmark)`
 `
 
 interface Props {
+  profileInfo: any,
   profilePosts: any
 }
 
-const ProfilePosts = ({ profilePosts }: Props) => {
+const ProfilePosts = ({ profileInfo, profilePosts }: Props) => {
   const location = useLocation()
   const [postsType, setPostsType] = useState(location.pathname.includes('/saved') ? 'SAVED' : 'POSTS')
+  const [bookmarks, setBookmarks] = useState<any>([])
+
+  useEffect(() => {
+    const getAllBookmarks = async () => {
+      const currBookmarks = []
+      for (let bookmark of profileInfo.Bookmarks) {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts/${bookmark.PostId}`)
+        currBookmarks.push(response.data)
+      }
+      setBookmarks(currBookmarks)
+    }
+    getAllBookmarks()
+  }, [])
 
   useEffect(() => {
     setPostsType(location.pathname.includes('/saved') ? 'SAVED' : 'POSTS')
   }, [location.pathname])
 
-  console.log(profilePosts)
+  console.log(profileInfo)
+  console.log(bookmarks)
 
   return (
     <StyledBody>
@@ -86,11 +102,19 @@ const ProfilePosts = ({ profilePosts }: Props) => {
       </StyledPostTypesContainer>
 
       <StyledPosts>
-        {profilePosts.map((post: any) => {
-          return (
-            <SmallPost post={post} />
-          )
-        })}
+        {postsType === 'SAVED' ? (
+          bookmarks.map((post: any) => {
+            return (
+              <SmallPost post={post} />
+            )
+          })
+        ) : (
+          profilePosts.map((post: any) => {
+            return (
+              <SmallPost post={post} />
+            )
+          })
+        )}
       </StyledPosts>
     </StyledBody>
   )
