@@ -28,6 +28,12 @@ app.use('/comments', commentsRouter)
 const likesRouter = require('./routes/likes')
 app.use('/likes', likesRouter)
 
+const bookmarksRouter = require('./routes/bookmarks')
+app.use('/bookmarks', bookmarksRouter)
+
+const followRouter = require('./routes/follow')
+app.use('/follow', followRouter)
+
 const authRouter = require('./routes/auth')
 app.use('/auth', authRouter)
 

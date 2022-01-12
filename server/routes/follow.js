@@ -15,15 +15,15 @@ router.post('/', async (req, res) => {
       const updatedPost = await Posts.findByPk(PostId, {
         include: [Likes]
       })
-      res.json(updatedPost.Likes)
+      res.json(updatedPost)
     } else {
       await Likes.destroy({
-        where: { PostId: PostId, UserId: UserId }
+        where: { PostId: PostId, UserId, UserId }
       })
       const updatedPost = await Posts.findByPk(PostId, {
         include: [Likes]
       })
-      res.json(updatedPost.Likes)
+      res.json(updatedPost)
     }
   } catch (err) {
     console.error(err)

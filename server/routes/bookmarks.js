@@ -1,32 +1,35 @@
 const express = require('express')
 const router = express.Router()
-const { Posts, Likes } = require('../models')
+const { Posts, Bookmarks } = require('../models')
 
 router.post('/', async (req, res) => {
   try {
     const { PostId, UserId } = req.body
 
-    const found = await Likes.findOne({
+    console.log(req.body)
+
+    const found = await Bookmarks.findOne({
       where: { PostId: PostId, UserId: UserId}
     })
 
     if (!found) {
-      await Likes.create({ PostId: PostId, UserId: UserId })
+      await Bookmarks.create(req.body)
       const updatedPost = await Posts.findByPk(PostId, {
-        include: [Likes]
+        include: [Bookmarks]
       })
-      res.json(updatedPost.Likes)
+      res.json(updatedPost.Bookmarks)
     } else {
-      await Likes.destroy({
+      await Bookmarks.destroy({
         where: { PostId: PostId, UserId: UserId }
       })
       const updatedPost = await Posts.findByPk(PostId, {
-        include: [Likes]
+        include: [Bookmarks]
       })
-      res.json(updatedPost.Likes)
+      res.json(updatedPost.Bookmarks)
     }
   } catch (err) {
     console.error(err)
+    console.log(req.body)
   }
 })
 
